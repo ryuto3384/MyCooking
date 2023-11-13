@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct MyPageView: View {
+    
+    @State private var loginOk: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if(!loginOk) {
+            LoginPageView()
+        }else {
+            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        }
+        
     }
 }
 
