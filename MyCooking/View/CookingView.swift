@@ -41,6 +41,7 @@ struct CookingView: View {
         
     }
     
+    //フッター画面
     @available(iOS 17.0, *)
     @ViewBuilder
     func CustomTabBar() -> some View {
@@ -54,9 +55,9 @@ struct CookingView: View {
                         //シンボルアニメーション
                         .symbolEffect(.bounce.down.byLayer,  value: animatedTab.isAnimating)
                     
-                    Text(tab.title)
-                        .font(.caption2)
-                        .textScale(.secondary)
+//                    Text(tab.title)
+//                        .font(.caption2)
+//                        .textScale(.secondary)
                 }
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(activeTab == tab ? Color.primary : Color.gray.opacity(0.8))

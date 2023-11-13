@@ -25,7 +25,7 @@ enum Tab: String, CaseIterable {
         case .post:
             return "Post"
         case .mine:
-            return "Mine"
+            return "mine"
         }
     }
 }
