@@ -15,14 +15,12 @@ struct UploadView: View {
     @State private var imagePickerPresented = false
     @State private var photoItem: PhotosPickerItem?
     
-    @State private var titleText = ""
-    @State private var methodValue = 1
-    @State private var methodValues: [String] = Array(repeating: "", count: 100)
+    @State private var title = ""
+    @State private var methodValues: [String] = [""]
     
     @State private var ingredientsPeople = ""
-    @State private var ingredientsValue = 3
-    @State private var ingredientsValues: [String] = Array(repeating: "", count: 100)
-    @State private var ingredientsAmount: [String] = Array(repeating: "", count: 100)
+    @State private var ingredientsValues: [String] = [""]
+    @State private var ingredientsAmount: [String] = [""]
     
     
     @StateObject var viewModel = UploadViewModel()
@@ -46,8 +44,9 @@ struct UploadView: View {
                 Spacer()
                 
                 Button {
+                    
                     Task {
-                        try await viewModel.uploadPost(caption: introduction)
+                        try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount)
                         clearPostDateAndReturnToFeed()
                     }
                 } label: {
@@ -84,7 +83,7 @@ struct UploadView: View {
                     }
                     //区切り線
                     Divider()
-                    TextField("タイトル", text: $titleText)
+                    TextField("タイトル", text: $title)
                         .padding(.top, 20)
                         .padding(.horizontal, 10)
                     Divider()
@@ -93,10 +92,10 @@ struct UploadView: View {
                         Text("作り方")
                             .font(.title2)
                         
-                        ForEach(1...methodValue, id: \.self) { index in
+                        ForEach(0..<methodValues.count, id: \.self) { index in
                             VStack{
                                 HStack{
-                                    Text("\(index)")
+                                    Text("\(index + 1)")
                                         .frame(width: 20, height: 20)
                                     TextField("野菜を切る", text: $methodValues[index], axis: .vertical)
                                 }
@@ -109,7 +108,7 @@ struct UploadView: View {
                             Text("+")
                                 .font(.title)
                             Button("作り方を追加"){
-                                methodValue += 1
+                                methodValues.append("")
                             }
                         
                         }
@@ -123,7 +122,7 @@ struct UploadView: View {
                             .font(.title2)
                         
                         TextField("2人分", text: $ingredientsPeople)
-                        ForEach(1...ingredientsValue, id: \.self) { index in
+                        ForEach(0..<ingredientsValues.count, id: \.self) { index in
                             HStack{
                                 TextField("食材",text: $ingredientsValues[index])
                                 TextField("〇g", text: $ingredientsAmount[index])
@@ -134,7 +133,8 @@ struct UploadView: View {
                             Text("+")
                                 .font(.title)
                             Button("食材を追加"){
-                                ingredientsValue += 1
+                                ingredientsValues.append("")
+                                ingredientsAmount.append("")
                             }
                         
                         }
