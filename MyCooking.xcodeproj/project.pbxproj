@@ -11,6 +11,7 @@
 		2B6C62362AB18A1400B2D8D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62352AB18A1400B2D8D1 /* ContentView.swift */; };
 		2B6C62382AB18A1500B2D8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */; };
 		2B6C623B2AB18A1500B2D8D1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C623A2AB18A1500B2D8D1 /* Preview Assets.xcassets */; };
+		2B6EF5AB2B47E93F00169FEF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6EF5AA2B47E93F00169FEF /* SearchViewModel.swift */; };
 		2BD3D4492B4689EE00D19DBB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D4482B4689EE00D19DBB /* FirebaseAnalytics */; };
 		2BD3D44B2B4689EE00D19DBB /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D44A2B4689EE00D19DBB /* FirebaseAnalyticsOnDeviceConversion */; };
 		2BD3D44D2B4689EE00D19DBB /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D44C2B4689EE00D19DBB /* FirebaseAnalyticsSwift */; };
@@ -78,6 +79,7 @@
 		2B6C62352AB18A1400B2D8D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B6C623A2AB18A1500B2D8D1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2B6EF5AA2B47E93F00169FEF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		2BE283A42B4676680095F88D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2BE283A62B4676A00095F88D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		2BE2839C2B4675F50095F88D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2B6EF5AA2B47E93F00169FEF /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				2BE283CD2B467AB10095F88D /* EditProfileView.swift in Sources */,
 				2BE283EE2B4682630095F88D /* LoginView.swift in Sources */,
 				2BE283C92B4679D60095F88D /* PostGridViewModel.swift in Sources */,
+				2B6EF5AB2B47E93F00169FEF /* SearchViewModel.swift in Sources */,
 				2BE283DE2B4681270095F88D /* UserService.swift in Sources */,
 				2BE283EC2B46824D0095F88D /* LoginViewModel.swift in Sources */,
 				2BE283CB2B4679F70095F88D /* Post.swift in Sources */,

@@ -20,10 +20,10 @@ struct MainTabView: View {
                     selectedIndex = 0
                 }
                 .tabItem{
-                    Image(systemName: "house")
+                    Image(systemName: "list.bullet.clipboard")
                 }
                 .tag(0)
-            TicktokView()
+            SearchView()
                 .onAppear{
                     selectedIndex = 1
                 }
@@ -36,7 +36,7 @@ struct MainTabView: View {
                     selectedIndex = 2
                 }
                 .tabItem{
-                    Image(systemName: "plus.square")
+                    Image(systemName: "fork.knife.circle")
                 }
                 .tag(2)
             UploadView(tabIndex: $selectedIndex)
@@ -44,7 +44,7 @@ struct MainTabView: View {
                     selectedIndex = 3
                 }
                 .tabItem{
-                    Image(systemName: "heart")
+                    Image(systemName: "square.and.pencil")
                 }
                 .tag(3)
             CurrentUserProfileView(user: user )
