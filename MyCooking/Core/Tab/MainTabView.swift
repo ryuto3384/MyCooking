@@ -39,7 +39,7 @@ struct MainTabView: View {
                     Image(systemName: "plus.square")
                 }
                 .tag(2)
-            UploadView()
+            UploadView(tabIndex: $selectedIndex)
                 .onAppear{
                     selectedIndex = 3
                 }

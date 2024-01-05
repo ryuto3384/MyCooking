@@ -38,6 +38,7 @@
 		2BD3D4792B4689EE00D19DBB /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D4782B4689EE00D19DBB /* FirebaseRemoteConfigSwift */; };
 		2BD3D47B2B4689EE00D19DBB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D47A2B4689EE00D19DBB /* FirebaseStorage */; };
 		2BD3D47D2B4689EE00D19DBB /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D47C2B4689EE00D19DBB /* FirebaseStorageCombine-Community */; };
+		2BD3D47F2B47D82900D19DBB /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */; };
 		2BE283A52B4676680095F88D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283A42B4676680095F88D /* User.swift */; };
 		2BE283A72B4676A00095F88D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283A62B4676A00095F88D /* Profile.swift */; };
 		2BE283A92B4676CC0095F88D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283A82B4676CC0095F88D /* ProfileHeaderView.swift */; };
@@ -77,6 +78,7 @@
 		2B6C62352AB18A1400B2D8D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B6C623A2AB18A1500B2D8D1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		2BE283A42B4676680095F88D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2BE283A62B4676A00095F88D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2BE283A82B4676CC0095F88D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 		2BE283A02B4676260095F88D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BE283EA2B4682350095F88D /* RegistrationViewModel.swift in Sources */,
+				2BD3D47F2B47D82900D19DBB /* UploadViewModel.swift in Sources */,
 				2BE2846E2B4688800095F88D /* EditProfileViewModel.swift in Sources */,
 				2B6C62362AB18A1400B2D8D1 /* ContentView.swift in Sources */,
 				2BE283BF2B4679340095F88D /* CircularProfileImageView.swift in Sources */,
