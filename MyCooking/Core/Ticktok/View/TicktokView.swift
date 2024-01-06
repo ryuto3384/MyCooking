@@ -45,12 +45,12 @@ struct SearchView: View {
                     }
                 }
                 .padding(.top, 8)
-                .searchable(text: $searchText,prompt: "Search...")
+                .searchable(text: $searchText,prompt: "検索...")
             }
             .navigationDestination(for: User.self, destination: { user in
                 ProfileView(user: user)
             })
-            .navigationTitle("Eplore")
+            .navigationTitle("検索")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
