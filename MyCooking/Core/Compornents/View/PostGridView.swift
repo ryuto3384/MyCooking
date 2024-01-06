@@ -24,7 +24,6 @@ struct PostGridView: View {
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
     var body: some View {
-        NavigationStack {
             LazyVGrid(columns: gridItem, spacing: 1){
                 ForEach(viewModel.posts) { post in
                     NavigationLink(value: post) {
@@ -40,7 +39,6 @@ struct PostGridView: View {
                 showRecipeView(user: viewModel.user, post: post)
             })
             
-        }
     }
 }
 

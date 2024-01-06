@@ -74,6 +74,7 @@ struct showRecipeView: View {
                                 Text(post.ingredientsAmount[index])
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            Divider()
                         }
                     }
                     .padding(10)
@@ -99,12 +100,18 @@ struct showRecipeView: View {
                     .padding(10)
                     
                     VStack{
-                        Text("公開日:\(post.timestamp)")
+                        Text("公開日:\(formatDate(post.timestamp.dateValue()))")
                     }
                 }
             }
             
         }
+    }
+    
+    func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年M月d日"
+        return formatter.string(from: date)
     }
 }
 
