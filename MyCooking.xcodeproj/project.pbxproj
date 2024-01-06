@@ -12,6 +12,8 @@
 		2B6C62382AB18A1500B2D8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */; };
 		2B6C623B2AB18A1500B2D8D1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C623A2AB18A1500B2D8D1 /* Preview Assets.xcassets */; };
 		2B6EF5AB2B47E93F00169FEF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6EF5AA2B47E93F00169FEF /* SearchViewModel.swift */; };
+		2B740EF22B48F73600735A36 /* showRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B740EF12B48F73600735A36 /* showRecipeView.swift */; };
+		2B740EF42B48FBEF00735A36 /* ShowRecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B740EF32B48FBEF00735A36 /* ShowRecipeViewModel.swift */; };
 		2BD3D4492B4689EE00D19DBB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D4482B4689EE00D19DBB /* FirebaseAnalytics */; };
 		2BD3D44B2B4689EE00D19DBB /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D44A2B4689EE00D19DBB /* FirebaseAnalyticsOnDeviceConversion */; };
 		2BD3D44D2B4689EE00D19DBB /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2BD3D44C2B4689EE00D19DBB /* FirebaseAnalyticsSwift */; };
@@ -80,6 +82,8 @@
 		2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B6C623A2AB18A1500B2D8D1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B6EF5AA2B47E93F00169FEF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		2B740EF12B48F73600735A36 /* showRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showRecipeView.swift; sourceTree = "<group>"; };
+		2B740EF32B48FBEF00735A36 /* ShowRecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRecipeViewModel.swift; sourceTree = "<group>"; };
 		2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		2BE283A42B4676680095F88D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2BE283A62B4676A00095F88D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -191,6 +195,31 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		2B740EEE2B48F71400735A36 /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				2B740EF02B48F72400735A36 /* View */,
+				2B740EEF2B48F71C00735A36 /* ViewModel */,
+			);
+			path = Recipe;
+			sourceTree = "<group>";
+		};
+		2B740EEF2B48F71C00735A36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2B740EF32B48FBEF00735A36 /* ShowRecipeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2B740EF02B48F72400735A36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2B740EF12B48F73600735A36 /* showRecipeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2BE283902B4674E10095F88D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +240,7 @@
 		2BE283922B4675230095F88D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				2B740EEE2B48F71400735A36 /* Recipe */,
 				2BE283BA2B4678D40095F88D /* Compornents */,
 				2BE283E32B4681D50095F88D /* Authentication */,
 				2BE283AC2B46772F0095F88D /* Root */,
@@ -593,6 +623,8 @@
 				2BE283EE2B4682630095F88D /* LoginView.swift in Sources */,
 				2BE283C92B4679D60095F88D /* PostGridViewModel.swift in Sources */,
 				2B6EF5AB2B47E93F00169FEF /* SearchViewModel.swift in Sources */,
+				2B740EF22B48F73600735A36 /* showRecipeView.swift in Sources */,
+				2B740EF42B48FBEF00735A36 /* ShowRecipeViewModel.swift in Sources */,
 				2BE283DE2B4681270095F88D /* UserService.swift in Sources */,
 				2BE283EC2B46824D0095F88D /* LoginViewModel.swift in Sources */,
 				2BE283CB2B4679F70095F88D /* Post.swift in Sources */,

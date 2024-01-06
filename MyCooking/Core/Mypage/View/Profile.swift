@@ -10,12 +10,13 @@ import SwiftUI
 struct ProfileView: View {
     
     let user: User
-
-
+    
+    
     var body: some View {
         
+        
         ScrollView {
-
+            
             ProfileHeaderView(user: user)
             
             //grid
@@ -23,7 +24,8 @@ struct ProfileView: View {
         }
         .navigationTitle("MyPage")
         .navigationBarTitleDisplayMode(.inline)
-
+        
+        
         
     }
 }

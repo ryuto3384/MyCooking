@@ -24,16 +24,23 @@ struct PostGridView: View {
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
     var body: some View {
-        LazyVGrid(columns: gridItem, spacing: 1){
-            ForEach(viewModel.posts) { post in
-                KFImage(URL(string: post.imageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageDimension, height: imageDimension)
-                    .clipped()
-            }
+        NavigationStack {
+            LazyVGrid(columns: gridItem, spacing: 1){
+                ForEach(viewModel.posts) { post in
+                    NavigationLink(value: post) {
+                        KFImage(URL(string: post.imageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: imageDimension, height: imageDimension)
+                            .clipped()
+                        
+                    }
+                }
+            }.navigationDestination(for: Post.self, destination: { post in
+                showRecipeView(user: viewModel.user, post: post)
+            })
+            
         }
-
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PostGridViewModel: ObservableObject {
-    private let user: User
+    let user: User
     @Published var posts = [Post]()
     
     init(user: User, posts: [Post] = [Post]()) {
