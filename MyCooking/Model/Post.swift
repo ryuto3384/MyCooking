@@ -20,13 +20,29 @@ struct Post: Identifiable, Hashable, Codable {
     var likes: Int
     let imageUrl: String
     let timestamp: Timestamp
+    let category: RecipeCategory.RawValue
     var user: User?
 }
 
 extension Post {
     static var MOCK_POSTS: [Post] = [
-        .init(id: NSUUID().uuidString, ownerUid: NSUUID().uuidString, title: "", introduction: "This is some test caption for now", methodValues: [""], ingredientsPeople: "", ingredientsValues: [""], ingredientsAmount: [""], likes: 123, imageUrl: "syumagi-1", timestamp: Timestamp(), user: User.MOCK_USERS[0]),
-        .init(id: NSUUID().uuidString, ownerUid: NSUUID().uuidString, title: "", introduction: "syumagi-2", methodValues: [""], ingredientsPeople: "", ingredientsValues: [""], ingredientsAmount: [""], likes: 123, imageUrl: "syumagi-2", timestamp: Timestamp(), user: User.MOCK_USERS[1]),
-        .init(id: NSUUID().uuidString, ownerUid: NSUUID().uuidString, title: "", introduction: "syumagi-3", methodValues: [""], ingredientsPeople: "", ingredientsValues: [""], ingredientsAmount: [""], likes: 123, imageUrl: "syumagi-3", timestamp: Timestamp(), user: User.MOCK_USERS[2]),
+        .init(id: NSUUID().uuidString, ownerUid: NSUUID().uuidString, title: "", introduction: "This is some test caption for now", methodValues: [""], ingredientsPeople: "", ingredientsValues: [""], ingredientsAmount: [""], likes: 123, imageUrl: "syumagi-1", timestamp: Timestamp(),category: "\(RecipeCategory.breakfast)" ,user: User.MOCK_USERS[0]),
+        .init(id: NSUUID().uuidString, ownerUid: NSUUID().uuidString, title: "", introduction: "syumagi-2", methodValues: [""], ingredientsPeople: "", ingredientsValues: [""], ingredientsAmount: [""], likes: 123, imageUrl: "syumagi-2", timestamp: Timestamp(),category: "\(RecipeCategory.breakfast)" , user: User.MOCK_USERS[1]),
+        .init(id: NSUUID().uuidString, ownerUid: NSUUID().uuidString, title: "", introduction: "syumagi-3", methodValues: [""], ingredientsPeople: "", ingredientsValues: [""], ingredientsAmount: [""], likes: 123, imageUrl: "syumagi-3", timestamp: Timestamp(),category: "\(RecipeCategory.breakfast)", user: User.MOCK_USERS[2]),
     ]
+}
+
+enum RecipeCategory: String, CaseIterable {
+    case breakfast = "朝食"
+    case lunch = "昼食"
+    case dinner = "夕食"
+    case sweets = "スイーツ"
+    case japanese = "和食"
+    case western = "洋食"
+    case chinese = "中華"
+    case italian = "イタリアン"
+    case diet = "ダイエット"
+    case egg = "卵"
+    case health = "健康"
+    
 }

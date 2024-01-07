@@ -26,6 +26,9 @@ struct UploadView: View {
     
     @Binding var tabIndex: Int
     
+    @State private var selectedCategory = RecipeCategory.breakfast
+    let categories = RecipeCategory.allCases
+    
     var body: some View {
         VStack {
             //ツールバー
@@ -45,7 +48,7 @@ struct UploadView: View {
                 Button {
                     
                     Task {
-                        try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount)
+                        try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory.rawValue)
                         clearPostDateAndReturnToFeed()
                     }
                 } label: {
@@ -143,6 +146,11 @@ struct UploadView: View {
                     TextField("レシピの紹介文", text: $introduction, axis: .vertical)
                         .padding(10)
                     
+                    Picker("カテゴリー選択", selection: $selectedCategory) {
+                        ForEach(categories, id: \.self) { category in
+                            Text("\(category.rawValue)").tag(category)
+                        }
+                    }
                     
                     
                 }
