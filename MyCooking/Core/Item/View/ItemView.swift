@@ -16,34 +16,28 @@ struct ItemView: View {
             ScrollView{
                 LazyVStack{
                     VStack{
-                        Text("Title")
+                        Text("キーワード")
                             .font(.title)
-                        HStack{
-                            Button("a"){}
-                            Button("b"){}
-                            Button("c"){}
-                        }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
+                        
+                        ItemHeaderView()
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal)
                     }
-                    VStack{
-                        Text("Title")
-                            .font(.title)
-                        HStack{
-                            Button("a"){}
-                            Button("b"){}
-                            Button("c"){}
-                        }
-                    }
-                    VStack{
-                        Text("Title")
-                            .font(.title)
-                        HStack{
-                            Button("a"){}
-                            Button("b"){}
-                            Button("c"){}
+                    ForEach(0..<5) { _ in
+                        VStack{
+                            Text("Title")
+                                .font(.title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal)
+                            
+                            ItemScrollView()
+                            
                         }
                     }
                 }
-                .searchable(text: $searchText,prompt: "Search...")
+                .searchable(text: $searchText,prompt: "レシピ検索")
             }
         }
         
