@@ -6,32 +6,39 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ItemScrollView: View {
     
-    let category = "朝食"
-    let intro = "簡単で美味しい"
+    let category: String
+    let posts: [Post]
     
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 5) - 1
+    private let imageHeight: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
     var body: some View {
         
         //検索したcategoryを表示する
         
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(0..<5){_ in
-                    
-                    NavigationLink(destination: showRecipeView(user: User.MOCK_USERS[0], post: Post.MOCK_POSTS[0])){
-                        VStack{
-                            Image(.syumagi1)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: imageDimension, height: imageDimension)
-                                .clipped()
-                            
-                            Text(intro)
+            LazyHStack {
+                ForEach(posts.filter{ $0.category == category}){ post in
+                    if let user = post.user {
+                        NavigationLink(destination: showRecipeView(user: user, post: post)){
+                            VStack{
+                                KFImage(URL(string: post.imageUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: imageDimension, height: imageDimension)
+                                    .clipped()
+                                
+                                Text(post.introduction)
+                                    .font(.caption)
+                                Spacer()
+                            }
+                            .frame(width: imageDimension, height: imageHeight)
                         }
+                        
                     }
                     
                     
@@ -39,11 +46,8 @@ struct ItemScrollView: View {
                 }
             }
             
+            
         }
         
     }
-}
-
-#Preview {
-    ItemScrollView()
 }

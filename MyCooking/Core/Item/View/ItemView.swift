@@ -11,6 +11,10 @@ struct ItemView: View {
     
     @State private var searchText = ""
     
+    let categories = RecipeCategory.allCases
+    
+    @StateObject var viewModel = ItemViewModel()
+
     var body: some View {
         NavigationStack {
             ScrollView{
@@ -21,20 +25,20 @@ struct ItemView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         
-                        ItemHeaderView()
+                        ItemHeaderView(posts: viewModel.posts)
                             .frame(maxWidth: .infinity)
                             .padding(.horizontal)
                     }
-                    ForEach(0..<5) { _ in
+                    ForEach(categories, id: \.self) { category in
                         VStack{
-                            Text("Title")
+                            Text(category.rawValue)
                                 .font(.title)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal)
+                                
                             
-                            ItemScrollView()
-                            
+                            ItemScrollView(category: category.rawValue, posts: viewModel.posts)
                         }
+                        .padding(.horizontal)
                     }
                 }
                 .searchable(text: $searchText,prompt: "レシピ検索")

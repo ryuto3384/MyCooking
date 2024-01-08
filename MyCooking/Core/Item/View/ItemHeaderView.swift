@@ -17,6 +17,8 @@ struct ItemHeaderView: View {
     
     let categories = RecipeCategory.allCases
     
+    let posts: [Post]
+    
     var body: some View {
         let shuffledCategory = categories.shuffled().prefix(9)
         
@@ -25,7 +27,7 @@ struct ItemHeaderView: View {
                 ForEach(shuffledCategory, id: \.self) { category in
                     
                     
-                    NavigationLink(destination: ItemSearchView()){
+                    NavigationLink(destination: ItemSearchView(category: category.rawValue, posts: posts)){
                         Text(category.rawValue)
                             .frame(maxWidth: 200, minHeight: 60)
                             .background(Color(.black))
@@ -39,8 +41,4 @@ struct ItemHeaderView: View {
             }
         }
     }
-}
-
-#Preview {
-    ItemHeaderView()
 }

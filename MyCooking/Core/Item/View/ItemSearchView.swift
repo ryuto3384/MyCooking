@@ -16,6 +16,9 @@ struct ItemSearchView: View {
     
     @State private var selectedOption = SearchOption.ascending
     
+    let category: String
+    let posts: [Post]
+    
     var body: some View {
         VStack{
             Picker("検索オプション", selection: $selectedOption){
@@ -28,9 +31,9 @@ struct ItemSearchView: View {
             
             //下に色々
             List {
-                ForEach(0..<5) { _ in
-                    NavigationLink(destination: showRecipeView(user: User.MOCK_USERS[0], post: Post.MOCK_POSTS[0])){
-                        ItemSearchResultView()
+                ForEach(posts.filter{ $0.category == category}){ post in
+                    NavigationLink(destination: showRecipeView(user: post.user ?? User.MOCK_USERS[0], post: post)){
+                        ItemSearchResultView(post: post)
                     }
                 }
                 
@@ -38,8 +41,4 @@ struct ItemSearchView: View {
             .listStyle(.inset)
         }
     }
-}
-
-#Preview {
-    ItemSearchView()
 }

@@ -6,16 +6,30 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ItemSearchResultView: View {
+    
+    let post: Post
+    
     var body: some View {
+        
         HStack{
             VStack{
-               Text("Title")
-                Text("食材")
-                Text("アカウント")
+                Text(post.title)
+                HStack{
+                    ForEach(post.ingredientsValues, id: \.self) { value in
+                        Text(value)
+                    }
+                }
+                HStack{
+                    if let user = post.user {
+                        CircularProfileImageView(user: user, size: .xSmall)
+                        Text(user.username)
+                    }
+                }
             }
-            Image(.syumagi1)
+            KFImage(URL(string: post.imageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 130,height: 130)
@@ -25,6 +39,4 @@ struct ItemSearchResultView: View {
     }
 }
 
-#Preview {
-    ItemSearchResultView()
-}
+

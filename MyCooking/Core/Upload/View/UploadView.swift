@@ -164,8 +164,14 @@ struct UploadView: View {
     
     func clearPostDateAndReturnToFeed() {
         introduction = ""
+        title = ""
+        ingredientsPeople = ""
+        methodValues = [""]
+        ingredientsValues = [""]
+        ingredientsAmount = [""]
         viewModel.postImage = nil
         viewModel.selectedImage = nil
+        selectedCategory = RecipeCategory.breakfast
         tabIndex = 2
     }
     
