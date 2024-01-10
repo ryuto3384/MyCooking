@@ -35,14 +35,15 @@ class HomeViewModel: ObservableObject {
     func addItem(food: Post) {
         print(food)
         if var favorite = self.favorite {
+            if(favorite.count >= 40){
+                favorite.removeFirst()
+            }
             favorite.append(food)
             self.favorite = favorite
         } else {
             self.favorite = [food]
         }
-        print("-----------------------------------------------")
-        print(self.favorite?.count ?? 0)
-        print("-----------------------------------------------")
+        
     }
     
     @MainActor

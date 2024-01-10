@@ -29,16 +29,8 @@ struct ItemSearchView: View {
             .pickerStyle(SegmentedPickerStyle())
             .padding()
             
-            //下に色々
-            List {
-                ForEach(posts.filter{ $0.category == category}){ post in
-                    NavigationLink(destination: showRecipeView(user: post.user ?? User.MOCK_USERS[0], post: post)){
-                        ItemSearchResultView(post: post)
-                    }
-                }
-                
-            }
-            .listStyle(.inset)
+            ResultListView(posts: posts, category: category)
+            
         }
     }
 }

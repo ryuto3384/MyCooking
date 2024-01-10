@@ -13,24 +13,16 @@ struct HomeFavoriteView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        let _ = print(viewModel.favorite?.count ?? 0)
         VStack{
             Button{
                 dismiss()
             }label: {
                 Text("閉じる")
             }
-            ScrollView{
-                VStack{
-                    if let favoriteFoods = viewModel.favorite{
-                        ForEach(favoriteFoods) { food in
-                            Text(food.title)
-                            Divider()
-                        }
-                    }
-                    
-                }
+            if let favoriteFoods = viewModel.favorite{
+                ResultListView(posts: favoriteFoods, category: "")
             }
         }
+            
     }
 }

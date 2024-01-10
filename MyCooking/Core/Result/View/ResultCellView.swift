@@ -1,15 +1,14 @@
 //
-//  ItemSearchResultView.swift
+//  ResultCellView.swift
 //  MyCooking
 //
-//  Created by 中島瑠斗 on 2024/01/08.
+//  Created by 中島瑠斗 on 2024/01/10.
 //
 
 import SwiftUI
 import Kingfisher
 
-struct ItemSearchResultView: View {
-    
+struct ResultCellView: View {
     let post: Post
     
     var body: some View {
@@ -38,5 +37,3 @@ struct ItemSearchResultView: View {
         
     }
 }
-
-

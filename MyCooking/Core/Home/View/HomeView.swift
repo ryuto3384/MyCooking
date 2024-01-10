@@ -93,8 +93,10 @@ struct HomeView: View {
                 
             }
             .sheet(isPresented: $isPresented) {
-                HomeFavoriteView()
-                    .environmentObject(viewModel)
+                NavigationStack{
+                    HomeFavoriteView()
+                }
+                .environmentObject(viewModel)
             }
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
