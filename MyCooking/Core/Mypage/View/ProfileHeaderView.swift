@@ -19,7 +19,7 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 8){
-                    UserStatView(value: 0, title: "投稿")
+                    UserStatView(value: user.postCount, title: "投稿")
                     UserStatView(value: user.follow, title: "フォロワー")
                     UserStatView(value: user.followers, title: "フォロー中")
                 }
@@ -53,6 +53,7 @@ struct ProfileHeaderView: View {
                     showEdhitProfile.toggle()
                 } else {
                     //フォローする関数
+                    
                 }
             } label: {
                 Text(user.isCurrentUser ? "プロフィールを編集" : "フォロー")

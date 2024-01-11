@@ -39,7 +39,7 @@ struct MainTabView: View {
                     Image(systemName: "fork.knife.circle")
                 }
                 .tag(2)
-            UploadView(tabIndex: $selectedIndex)
+            UploadView(tabIndex: $selectedIndex, user: user)
                 .onAppear{
                     selectedIndex = 3
                 }

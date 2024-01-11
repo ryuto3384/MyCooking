@@ -25,6 +25,9 @@ struct UploadView: View {
     @StateObject var viewModel = UploadViewModel()
     
     @Binding var tabIndex: Int
+    let user: User
+    
+    @State private var showAlert = false
     
     @State private var selectedCategory = RecipeCategory.breakfast
     let categories = RecipeCategory.allCases
@@ -36,8 +39,8 @@ struct UploadView: View {
                 Button {
                     clearPostDateAndReturnToFeed()
                 } label: {
-                     Text("閉じる")
-                        
+                    Text("閉じる")
+                    
                 }
                 
                 Spacer()
@@ -46,14 +49,29 @@ struct UploadView: View {
                 Spacer()
                 
                 Button {
-                    
-                    Task {
-                        try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory.rawValue)
-                        clearPostDateAndReturnToFeed()
+                    if let image = viewModel.postImage {
+                        if title.isEmpty || methodValues.allSatisfy({ $0.isEmpty }) || ingredientsValues.allSatisfy({ $0.isEmpty }) || ingredientsAmount.allSatisfy({ $0.isEmpty }) || introduction.isEmpty {
+                            
+                            showAlert = true
+                        } else {
+                            Task {
+                                try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory.rawValue)
+                                clearPostDateAndReturnToFeed()
+                                
+                                try await viewModel.updateCount(user: user)
+                            }
+                            
+                        }
+                    } else {
+                        showAlert = true
                     }
+                    
                 } label: {
-                     Text("投稿")
+                    Text("投稿")
                         .fontWeight(.semibold)
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("入力エラー"), message: Text("全ての項目を入力してください"), dismissButton: .default(Text("OK")))
                 }
             }
             .padding(.horizontal)
@@ -81,7 +99,7 @@ struct UploadView: View {
                             //画像に白いフィルターを付ける
                         }
                         
-                            
+                        
                     }
                     //区切り線
                     Divider()
@@ -112,7 +130,7 @@ struct UploadView: View {
                             Button("作り方を追加"){
                                 methodValues.append("")
                             }
-                        
+                            
                         }
                         
                         
@@ -138,7 +156,7 @@ struct UploadView: View {
                                 ingredientsValues.append("")
                                 ingredientsAmount.append("")
                             }
-                        
+                            
                         }
                     }
                     .padding(10)
@@ -157,7 +175,7 @@ struct UploadView: View {
                 
                 
             }
-
+            
         }
         .photosPicker(isPresented: $imagePickerPresented, selection: $viewModel.selectedImage)
     }
@@ -178,5 +196,5 @@ struct UploadView: View {
 }
 
 #Preview {
-    UploadView(tabIndex: .constant(0))
+    UploadView(tabIndex: .constant(0), user: User.MOCK_USERS[0])
 }

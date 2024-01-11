@@ -42,4 +42,15 @@ class UploadViewModel: ObservableObject {
         
         try await postRef.setData(encodedPost)
     }
+    
+    func updateCount(user: User) async throws {
+        var data = [String: Any]()
+        
+        var count = user.postCount
+        count += 1
+        
+        data["postCount"] = count
+        
+        try await Firestore.firestore().collection("users").document(user.id).updateData(data)
+    }
 }
