@@ -19,9 +19,9 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 8){
-                    UserStatView(value: 3, title: "投稿")
-                    UserStatView(value: 12, title: "フォロワー")
-                    UserStatView(value: 122, title: "フォロー中")
+                    UserStatView(value: 0, title: "投稿")
+                    UserStatView(value: user.follow, title: "フォロワー")
+                    UserStatView(value: user.followers, title: "フォロー中")
                 }
             }
             .padding(.horizontal)
