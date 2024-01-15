@@ -49,7 +49,7 @@ struct UploadView: View {
                 Spacer()
                 
                 Button {
-                    if let image = viewModel.postImage {
+                    if viewModel.postImage != nil {
                         if title.isEmpty || methodValues.allSatisfy({ $0.isEmpty }) || ingredientsValues.allSatisfy({ $0.isEmpty }) || ingredientsAmount.allSatisfy({ $0.isEmpty }) || introduction.isEmpty {
                             
                             showAlert = true

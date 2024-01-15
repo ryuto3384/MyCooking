@@ -15,20 +15,31 @@ struct ResultCellView: View {
         
         HStack{
             VStack{
-                Text(post.title)
+                HStack{
+                    Text(post.title)
+                        .font(.title3)
+                    Spacer()
+                }
+                
                 HStack{
                     ForEach(post.ingredientsValues, id: \.self) { value in
                         Text(value)
+                            .font(.caption)
                     }
+                    Spacer()
                 }
                 HStack{
                     if let user = post.user {
                         CircularProfileImageView(user: user, size: .xSmall)
                         Text(user.username)
+                        Spacer()
                     }
                 }
             }
+            .padding(.horizontal)
+            Spacer()
             KFImage(URL(string: post.imageUrl))
+            //Image(post.imageUrl)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 130,height: 130)
@@ -36,4 +47,8 @@ struct ResultCellView: View {
         }
         
     }
+}
+
+#Preview {
+    ResultListView(posts: Post.MOCK_POSTS, category: "")
 }
