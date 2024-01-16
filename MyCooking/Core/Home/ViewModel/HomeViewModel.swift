@@ -15,6 +15,10 @@ class HomeViewModel: ObservableObject {
     
     @Published var favorite: [Post]?
     
+    @Published var showProgressFlag: Bool = false
+    
+    @Published var selectCate = ""
+    
     init(){
         Task { try await fetchPosts() }
         
@@ -25,7 +29,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func getIndex(food: Post) -> Int {
-        let index = displaying_posts?.firstIndex(where: { currentFood in
+        let index = displaying_posts?.lastIndex(where: { currentFood in
             return food.id == currentFood.id
         }) ?? 0
         
@@ -36,7 +40,7 @@ class HomeViewModel: ObservableObject {
         print(food)
         if var favorite = self.favorite {
             if(favorite.count >= 40){
-                favorite.removeFirst()
+                favorite.removeLast()
             }
             favorite.append(food)
             self.favorite = favorite
@@ -48,7 +52,17 @@ class HomeViewModel: ObservableObject {
     
     @MainActor
     func fetchPosts() async throws {
-        self.posts = try await PostService.fetchFeedPosts()
+        showProgressFlag = true
+        self.posts = try await PostService.fetchFeedPosts(cate: selectCate)
         self.displaying_posts = self.posts.shuffled()
+        
+        
+        guard let dispPosts = displaying_posts else {
+            return
+        }
+//        for post in dispPosts{
+//            print(post.title)
+//        }
+        showProgressFlag = false
     }
 }

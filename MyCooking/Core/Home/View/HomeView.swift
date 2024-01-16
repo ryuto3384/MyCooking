@@ -12,6 +12,9 @@ struct HomeView: View {
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
     @State private var isPresented = false
+    @State private var isShowCategory = false
+    
+    @State var selectCate = ""
     
     private let buttonSize: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
@@ -19,27 +22,34 @@ struct HomeView: View {
         
         NavigationStack {
             VStack {
+                
                 ZStack {
-                    
-                    if let foods = viewModel.displaying_posts {
-                        if foods.isEmpty {
-                            Text("もうありません")
-                                .font(.caption)
-                                .foregroundStyle(Color.gray)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        } else {
-                            //let _ = CardPrint()
-                            ForEach(foods){ food in
-                                StackCardView(food: food)
-                                    .environmentObject(viewModel)
-                            }
-                        }
-                    } else {
+                    if viewModel.showProgressFlag {
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    } else {
+                        if let foods = viewModel.displaying_posts {
+                            if foods.isEmpty {
+                                Button{
+                                    Task{
+                                        try await viewModel.fetchPosts()
+                                    }
+                                } label: {
+                                    Text("更新する")
+                                        .font(.caption)
+                                        .foregroundStyle(Color.gray)
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                }
+                                
+                                
+                            } else {
+                                ForEach(foods){ food in
+                                    StackCardView(food: food)
+                                        .environmentObject(viewModel)
+                                }
+                            }
+                        }
                     }
-                    
-                    
                 }
                 .padding()
                 
@@ -102,9 +112,14 @@ struct HomeView: View {
                 ToolbarItem(placement: .topBarTrailing){
                     Button{
                         print("種類の変更")
-                        Task{ try await viewModel.fetchPosts() }
+                        isShowCategory.toggle()
                     }label: {
                         Image(systemName: "slider.horizontal.3")
+                    }
+                    .sheet(isPresented: $isShowCategory){
+                        HomeSelectedCategoryView()
+                            .presentationDetents([.medium])
+                            .environmentObject(viewModel)
                     }
                 }
             }
@@ -113,12 +128,12 @@ struct HomeView: View {
     }
     
     func doSwipe(rightSwipe: Bool = false) {
-        guard let first = viewModel.displaying_posts?.first else{
+        guard let last = viewModel.displaying_posts?.last else{
             return
         }
         
         NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil, userInfo: [
-            "id" : first.id,
+            "id" : last.id,
             "rightSwipe" : rightSwipe
         ])
     }

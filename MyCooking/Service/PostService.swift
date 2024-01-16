@@ -12,20 +12,37 @@ struct PostService {
     
     private static var postsCollection = Firestore.firestore().collection("posts")
     
-    static func fetchFeedPosts() async throws -> [Post] {
-        let snapshot = try await postsCollection.getDocuments()
-        
-        var posts = try snapshot.documents.compactMap({ try $0.data(as: Post.self) })
+    static func fetchFeedPosts(cate: String) async throws -> [Post] {
 
-        for i in 0 ..< posts.count {
-            let post = posts[i]
-            let ownerUid = post.ownerUid
-            let postUser = try await UserService.fetchUser(withUid: ownerUid)
+        if cate == ""{
+            let snapshot = try await postsCollection.getDocuments()
+            var posts = try snapshot.documents.compactMap({ try $0.data(as: Post.self) })
+            for i in 0 ..< posts.count {
+                let post = posts[i]
+                let ownerUid = post.ownerUid
+                let postUser = try await UserService.fetchUser(withUid: ownerUid)
+                
+                posts[i].user = postUser
+            }
             
-            posts[i].user = postUser
+            return posts
+        } else {
+            let query = postsCollection.whereField("category", isEqualTo: cate)
+            let snapshot = try await query.getDocuments()
+            var posts = try snapshot.documents.compactMap({ try $0.data(as: Post.self) })
+            for i in 0 ..< posts.count {
+                let post = posts[i]
+                let ownerUid = post.ownerUid
+                let postUser = try await UserService.fetchUser(withUid: ownerUid)
+                
+                posts[i].user = postUser
+            }
+            
+            return posts
         }
+
         
-        return posts
+        
     }
     
     static func fetchUserPosts(uid: String) async throws -> [Post] {

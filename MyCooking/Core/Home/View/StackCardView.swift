@@ -13,8 +13,6 @@ struct StackCardView: View {
     @EnvironmentObject var viewModel: HomeViewModel
     var food: Post
     
-    
-    
     //ジェスチャー
     @State var offset: CGFloat = 0
     @GestureState var isDragging: Bool = false
@@ -30,13 +28,12 @@ struct StackCardView: View {
             let topOffset = (index <= 2 ? index : 2) * 5
             
             ZStack {
-                
                 KFImage(URL(string: food.imageUrl))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: abs(size.width / 1.5 - topOffset), height: abs(size.width / 1.5))
+                    .frame(width: abs(size.width / 1.5 + topOffset), height: abs(size.width / 1.5))
                     .cornerRadius(15)
-                    .offset(y: -topOffset)
+                    .offset(y: topOffset)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
            
@@ -117,12 +114,12 @@ struct StackCardView: View {
         
         //何度も連続してできないように時間をすこしあける
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
-            if let firstPost = viewModel.displaying_posts?.first{
+            if let lastPost = viewModel.displaying_posts?.last{
                 let _ = withAnimation{
                     if(rightSwipe){
-                        viewModel.addItem(food: firstPost)
+                        viewModel.addItem(food: lastPost)
                     }
-                    viewModel.displaying_posts?.removeFirst()
+                    viewModel.displaying_posts?.removeLast()
                 }
             }
         }
