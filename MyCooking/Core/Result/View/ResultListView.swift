@@ -18,14 +18,14 @@ struct ResultListView: View {
         List {
             if category == "" {
                 ForEach(posts) { post in
-                    NavigationLink(destination: showRecipeView(user: post.user ?? User.MOCK_USERS[0], post: post)){
+                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0])){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
                     }
                 }
             } else {
                 ForEach(posts.filter{ $0.category == category}){ post in
-                    NavigationLink(destination: showRecipeView(user: post.user ?? User.MOCK_USERS[0], post: post)){
+                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0])){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
                     }

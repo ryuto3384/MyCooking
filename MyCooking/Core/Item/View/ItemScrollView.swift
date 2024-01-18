@@ -24,7 +24,7 @@ struct ItemScrollView: View {
             LazyHStack {
                 ForEach(posts.filter{ $0.category == category}){ post in
                     if let user = post.user {
-                        NavigationLink(destination: showRecipeView(user: user, post: post)){
+                        NavigationLink(destination: showRecipeView(post: post, user: user)){
                             VStack{
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()

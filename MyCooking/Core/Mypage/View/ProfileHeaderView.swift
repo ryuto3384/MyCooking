@@ -8,36 +8,41 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-    let user: User
+    @StateObject var viewModel: ProfileHeaderViewModel
+    
+    init(user: User) {
+        self._viewModel = StateObject(wrappedValue: ProfileHeaderViewModel(user: user))
+    }
+    
     @State private var showEdhitProfile = false
     
     var body: some View {
         VStack(spacing: 10) {
             HStack{
-                CircularProfileImageView(user: user, size: .large)
+                CircularProfileImageView(user: viewModel.user, size: .large)
                 
                 Spacer()
                 
                 HStack(spacing: 8){
-                    UserStatView(value: user.postCount, title: "投稿")
-                    UserStatView(value: user.follow, title: "フォロワー")
-                    UserStatView(value: user.followers, title: "フォロー中")
+                    UserStatView(value: viewModel.user.postCount, title: "投稿")
+                    UserStatView(value: viewModel.user.followers.count, title: "フォロワー")
+                    UserStatView(value: viewModel.user.follow.count, title: "フォロー中")
                 }
             }
             .padding(.horizontal)
             
             //アカウント名
             VStack(alignment: .leading, spacing: 4){
-                if let fullname = user.fullname {
+                if let fullname = viewModel.user.fullname {
                     Text(fullname)
                         .font(.footnote)
                         .fontWeight(.semibold)
                 } else {
-                    Text(user.username)
+                    Text(viewModel.user.username)
                 }
                 
                 
-                if let bio = user.bio {
+                if let bio = viewModel.user.bio {
                     Text(bio)
                         .font(.footnote)
                 }
@@ -48,31 +53,43 @@ struct ProfileHeaderView: View {
             .padding(.horizontal)
             
             Button {
-                if user.isCurrentUser {
+                if viewModel.user.isCurrentUser {
                     //editの編集画面へ
                     showEdhitProfile.toggle()
                 } else {
-                    //フォローする関数
+                    if viewModel.checkFollow() {
+                        Task { try await viewModel.deleteFollow()}
+                    } else {
+                        //フォローする関数
+                        Task { try await viewModel.registFollow() }
+                        
+                    }
+                    
                     
                 }
             } label: {
-                Text(user.isCurrentUser ? "プロフィールを編集" : "フォロー")
+                
+                Text(viewModel.user.isCurrentUser ? "プロフィールを編集" : viewModel.checkFollow() ? "フォロー中" : "フォロー")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360, height: 32)
-                    .background(user.isCurrentUser ? .white : Color(.systemBlue))
-                    .foregroundStyle(user.isCurrentUser ? .black : .white)
+                    .background(viewModel.user.isCurrentUser ? .white : viewModel.checkFollow() ? Color(.systemGray5) : Color(.systemBlue))
+                    .foregroundStyle(viewModel.user.isCurrentUser ? .black : viewModel.checkFollow() ? .black : .white)
                     .cornerRadius(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 6).stroke(user.isCurrentUser ? .gray : .clear, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 6).stroke(viewModel.user.isCurrentUser ? .gray : .clear, lineWidth: 1)
                     )
+                
             }
             
             //区切り線
-            Divider()
+            //Divider()
         }
         .fullScreenCover(isPresented: $showEdhitProfile) {
-            EditProfileView(user: user)
+            EditProfileView(user: viewModel.user)
+        }
+        .onAppear{
+            Task { try await viewModel.loadUser() }
         }
     }
 }

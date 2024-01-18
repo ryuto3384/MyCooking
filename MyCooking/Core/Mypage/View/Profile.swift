@@ -17,11 +17,16 @@ struct ProfileView: View {
             
             ProfileHeaderView(user: user)
             
+            Divider()
+            
             //grid
             PostGridView(user: user)
         }
         .navigationTitle("MyPage")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear{
+            
+        }
         
         
         

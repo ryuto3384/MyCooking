@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B4D30932B590EA400CF0461 /* FavoriteGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30922B590EA400CF0461 /* FavoriteGridView.swift */; };
+		2B4D30952B590EC100CF0461 /* FavoriteGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */; };
+		2B4D30972B591BAF00CF0461 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30962B591BAF00CF0461 /* ProfileHeaderViewModel.swift */; };
+		2B4D309A2B59307E00CF0461 /* ProfileAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */; };
 		2B6C62342AB18A1400B2D8D1 /* MyCookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62332AB18A1400B2D8D1 /* MyCookingApp.swift */; };
 		2B6C62362AB18A1400B2D8D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62352AB18A1400B2D8D1 /* ContentView.swift */; };
 		2B6C62382AB18A1500B2D8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */; };
@@ -87,6 +91,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B4D30922B590EA400CF0461 /* FavoriteGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGridView.swift; sourceTree = "<group>"; };
+		2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGridViewModel.swift; sourceTree = "<group>"; };
+		2B4D30962B591BAF00CF0461 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
+		2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAuthService.swift; sourceTree = "<group>"; };
 		2B6C62302AB18A1400B2D8D1 /* MyCooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6C62332AB18A1400B2D8D1 /* MyCookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCookingApp.swift; sourceTree = "<group>"; };
 		2B6C62352AB18A1400B2D8D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -178,6 +186,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B4D30982B59304800CF0461 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		2B6C62272AB18A1400B2D8D1 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +332,7 @@
 		2BE283942B4675490095F88D /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
+				2B4D30982B59304800CF0461 /* Service */,
 				2BE283A32B46763A0095F88D /* View */,
 				2BE283A22B4676320095F88D /* ViewModel */,
 			);
@@ -432,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE2846D2B4688800095F88D /* EditProfileViewModel.swift */,
+				2B4D30962B591BAF00CF0461 /* ProfileHeaderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -493,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE283C82B4679D60095F88D /* PostGridViewModel.swift */,
+				2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -501,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE283AA2B4677280095F88D /* PostGridView.swift */,
+				2B4D30922B590EA400CF0461 /* FavoriteGridView.swift */,
 				2BE283BE2B4679340095F88D /* CircularProfileImageView.swift */,
 				2BE283C02B4679460095F88D /* IGTextFieldModifire.swift */,
 				2BE283C22B4679590095F88D /* UserStatView.swift */,
@@ -670,7 +690,9 @@
 				2BE283F22B4682A30095F88D /* CreateUserNameView.swift in Sources */,
 				2BE283C32B4679590095F88D /* UserStatView.swift in Sources */,
 				2BE283A72B4676A00095F88D /* Profile.swift in Sources */,
+				2B4D30932B590EA400CF0461 /* FavoriteGridView.swift in Sources */,
 				2BE283DC2B4681040095F88D /* ContentViewModel.swift in Sources */,
+				2B4D309A2B59307E00CF0461 /* ProfileAuthService.swift in Sources */,
 				2BE283F02B4682850095F88D /* AddEmailView.swift in Sources */,
 				2BE283AB2B4677280095F88D /* PostGridView.swift in Sources */,
 				2BE283B72B4677CD0095F88D /* HomeView.swift in Sources */,
@@ -698,8 +720,10 @@
 				2BE283E82B4682140095F88D /* AuthService.swift in Sources */,
 				2BD33B9A2B562569004FD3E6 /* Category.swift in Sources */,
 				2B6C62342AB18A1400B2D8D1 /* MyCookingApp.swift in Sources */,
+				2B4D30952B590EC100CF0461 /* FavoriteGridViewModel.swift in Sources */,
 				2B740EFE2B4BD7C500735A36 /* ItemViewModel.swift in Sources */,
 				2BE283E02B4681380095F88D /* ImageUploader.swift in Sources */,
+				2B4D30972B591BAF00CF0461 /* ProfileHeaderViewModel.swift in Sources */,
 				2B740EF82B4BCC0E00735A36 /* ItemScrollView.swift in Sources */,
 				2BE283A52B4676680095F88D /* User.swift in Sources */,
 				2BE283C12B4679460095F88D /* IGTextFieldModifire.swift in Sources */,

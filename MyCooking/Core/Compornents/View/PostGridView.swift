@@ -36,8 +36,11 @@ struct PostGridView: View {
                     }
                 }
             }.navigationDestination(for: Post.self, destination: { post in
-                showRecipeView(user: viewModel.user, post: post)
+                showRecipeView(post: post, user: viewModel.user)
             })
+            .onAppear{
+                Task { try await viewModel.fetchUserPosts() }
+            }
             
     }
 }

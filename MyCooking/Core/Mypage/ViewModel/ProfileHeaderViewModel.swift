@@ -6,13 +6,46 @@
 //
 
 import SwiftUI
+import Firebase
 
-struct ProfileHeaderViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+class ProfileHeaderViewModel: ObservableObject {
+    @Published var user: User
+    @Published var follow = [String]()
+    @Published var followers = [String]()
+    
+    init(user: User) {
+        self.user = user
+        
+        if user.follow != [] {
+            self.follow = user.follow
+        }
+        if user.followers != [] {
+            self.followers = user.followers
+        }
     }
-}
+    
+    @MainActor
+    func registFollow() async throws {
+        try await ProfileAuthService.shared.loadUserData()
+        try await ProfileAuthService.shared.registFollow(user: user)
+        self.user = try await ProfileAuthService.shared.loadWatchUserData(user: user)
 
-#Preview {
-    ProfileHeaderViewModel()
+    }
+    
+    @MainActor
+    func deleteFollow() async throws {
+        try await ProfileAuthService.shared.loadUserData()
+        try await ProfileAuthService.shared.deleteFollow(user: user)
+        self.user = try await ProfileAuthService.shared.loadWatchUserData(user: user)
+
+    }
+    
+    func checkFollow() -> Bool {
+        return ProfileAuthService.shared.checkFollow(user: self.user)
+    }
+    @MainActor
+    func loadUser() async throws {
+        self.user = try await ProfileAuthService.shared.loadWatchUserData(user: user)
+    }
 }

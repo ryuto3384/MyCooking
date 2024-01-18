@@ -6,13 +6,45 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FavoriteGridView: View {
+    @StateObject var viewModel: FavoriteGridViewModel
+    
+    init(user: User) {
+        self._viewModel = StateObject(wrappedValue: FavoriteGridViewModel(user: user))
+    }
+    
+    private let gridItem : [GridItem] = [
+        .init(.flexible(), spacing: 1),
+        .init(.flexible(), spacing: 1),
+        .init(.flexible(), spacing: 1)
+    ]
+    
+    private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 1
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            LazyVGrid(columns: gridItem, spacing: 1){
+                ForEach(viewModel.posts) { post in
+                    NavigationLink(value: post) {
+                        KFImage(URL(string: post.imageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: imageDimension, height: imageDimension)
+                            .clipped()
+                        
+                    }
+                }
+            }.navigationDestination(for: Post.self, destination: { post in
+                showRecipeView(post: post, user: viewModel.user)
+            })
+            .onAppear{
+                Task { try await viewModel.fetchUserPosts() }
+            }
+            
     }
 }
 
 #Preview {
-    FavoriteGridView()
+    FavoriteGridView(user: User.MOCK_USERS[0])
 }

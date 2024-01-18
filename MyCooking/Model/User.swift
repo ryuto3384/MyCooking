@@ -15,9 +15,11 @@ struct User: Identifiable,Hashable, Codable {
     var fullname: String?
     var bio: String?
     let email: String
-    var follow: Int
-    var followers: Int
+    var follow: [String]
+    var followers: [String]
     var postCount: Int
+    var favoriteList: [String]
+    
     
     var isCurrentUser: Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false}
@@ -27,8 +29,8 @@ struct User: Identifiable,Hashable, Codable {
 
 extension User {
     static var MOCK_USERS: [User] = [
-        .init(id: NSUUID().uuidString, username: "syumagi", profileImageUrl: "nil", fullname: "Syuden Magiwa", bio: "Dark", email: "syumagi@gmail.com", follow: 1, followers: 1, postCount: 0),
-        .init(id: NSUUID().uuidString, username: "syumagi2", profileImageUrl: "nil", fullname: nil, bio: "Dark", email: "syumagi2@gmail.com", follow: 2, followers: 2,postCount: 0),
-        .init(id: NSUUID().uuidString, username: "syumagi3", profileImageUrl: "nil", fullname: "Syuden Magiwa3", bio: "Dark", email: "syumagi3@gmail.com", follow: 3, followers: 3, postCount: 0)
+        .init(id: NSUUID().uuidString, username: "syumagi", profileImageUrl: "nil", fullname: "Syuden Magiwa", bio: "Dark", email: "syumagi@gmail.com", follow: [], followers: [], postCount: 0, favoriteList: ["NNiICIJnhlH7yPpTNpD2", "1A4bORFzYIOajf6b2dT5"]),
+        .init(id: NSUUID().uuidString, username: "syumagi2", profileImageUrl: "nil", fullname: nil, bio: "Dark", email: "syumagi2@gmail.com", follow: [], followers: [],postCount: 0, favoriteList: ["NNiICIJnhlH7yPpTNpD2", "1A4bORFzYIOajf6b2dT5"]),
+        .init(id: NSUUID().uuidString, username: "syumagi3", profileImageUrl: "nil", fullname: "Syuden Magiwa3", bio: "Dark", email: "syumagi3@gmail.com", follow: [], followers: [], postCount: 0, favoriteList: ["NNiICIJnhlH7yPpTNpD2", "1A4bORFzYIOajf6b2dT5"])
     ]
 }

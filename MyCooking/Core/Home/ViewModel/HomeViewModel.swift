@@ -57,7 +57,7 @@ class HomeViewModel: ObservableObject {
         self.displaying_posts = self.posts.shuffled()
         
         
-        guard let dispPosts = displaying_posts else {
+        guard displaying_posts != nil else {
             return
         }
 //        for post in dispPosts{

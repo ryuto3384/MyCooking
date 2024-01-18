@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PostGridViewModel: ObservableObject {
-    let user: User
+    @Published var user: User
     @Published var posts = [Post]()
     
     init(user: User, posts: [Post] = [Post]()) {
@@ -24,7 +24,10 @@ class PostGridViewModel: ObservableObject {
     
     @MainActor
     func fetchUserPosts() async throws{
-        self.posts = try await PostService.fetchUserPosts(uid: user.id)
+        
+        self.user = try await UserService.fetchUser(withUid: user.id)
+        
+        self.posts = try await PostService.fetchUserPosts(uid: self.user.id)
         
         for i in 0 ..< posts.count {
             posts[i].user = self.user

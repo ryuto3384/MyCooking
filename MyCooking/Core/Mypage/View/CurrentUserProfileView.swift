@@ -7,16 +7,37 @@
 
 import SwiftUI
 
+enum GridOption: String, CaseIterable {
+    case myPost = "myPost"
+    case favorite = "favofite"
+}
+
 struct CurrentUserProfileView: View {
     
     let user: User
+    
+    @State private var gridOption = GridOption.myPost
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 ProfileHeaderView(user: user)
-                //grid
-                PostGridView(user: user)
+                
+                Picker("検索オプション", selection: $gridOption){
+                    ForEach(GridOption.allCases, id: \.self) { option in
+                        Text(option.rawValue)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal, 1)
+                
+                if gridOption == GridOption.myPost {
+                    //grid
+                    PostGridView(user: user)
+                } else {
+                    FavoriteGridView(user: user)
+                }
+                
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
@@ -32,6 +53,7 @@ struct CurrentUserProfileView: View {
             }
         }
     }
+    
 }
 
 #Preview {
