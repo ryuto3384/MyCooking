@@ -54,6 +54,7 @@
 		2B740F402B4FC77F00735A36 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2B740F3F2B4FC77F00735A36 /* FirebaseRemoteConfigSwift */; };
 		2B740F422B4FC77F00735A36 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2B740F412B4FC77F00735A36 /* FirebaseStorage */; };
 		2B740F442B4FC77F00735A36 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 2B740F432B4FC77F00735A36 /* FirebaseStorageCombine-Community */; };
+		2B947B842B5CC770005AE745 /* UploadHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B947B832B5CC770005AE745 /* UploadHashView.swift */; };
 		2BD33B982B5620E9004FD3E6 /* HomeSelectedCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD33B972B5620E9004FD3E6 /* HomeSelectedCategoryView.swift */; };
 		2BD33B9A2B562569004FD3E6 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD33B992B562569004FD3E6 /* Category.swift */; };
 		2BD3D47F2B47D82900D19DBB /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */; };
@@ -112,6 +113,7 @@
 		2B740F032B4D432700735A36 /* HomeFavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavoriteView.swift; sourceTree = "<group>"; };
 		2B740F0A2B4EA09B00735A36 /* ResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListView.swift; sourceTree = "<group>"; };
 		2B740F0C2B4EA0A600735A36 /* ResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCellView.swift; sourceTree = "<group>"; };
+		2B947B832B5CC770005AE745 /* UploadHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadHashView.swift; sourceTree = "<group>"; };
 		2BD33B972B5620E9004FD3E6 /* HomeSelectedCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectedCategoryView.swift; sourceTree = "<group>"; };
 		2BD33B992B562569004FD3E6 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		2BD3D47E2B47D82900D19DBB /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE283B82B4677DA0095F88D /* UploadView.swift */,
+				2B947B832B5CC770005AE745 /* UploadHashView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				2B4D30952B590EC100CF0461 /* FavoriteGridViewModel.swift in Sources */,
 				2B740EFE2B4BD7C500735A36 /* ItemViewModel.swift in Sources */,
 				2BE283E02B4681380095F88D /* ImageUploader.swift in Sources */,
+				2B947B842B5CC770005AE745 /* UploadHashView.swift in Sources */,
 				2B4D30972B591BAF00CF0461 /* ProfileHeaderViewModel.swift in Sources */,
 				2B740EF82B4BCC0E00735A36 /* ItemScrollView.swift in Sources */,
 				2BE283A52B4676680095F88D /* User.swift in Sources */,
