@@ -22,7 +22,7 @@ struct ItemScrollView: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
-                ForEach(posts.filter{ $0.category == category}){ post in
+                ForEach(posts.filter{ $0.category.contains(category) }){ post in
                     if let user = post.user {
                         NavigationLink(destination: showRecipeView(post: post, user: user)){
                             VStack{

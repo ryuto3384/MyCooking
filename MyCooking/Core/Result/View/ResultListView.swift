@@ -24,7 +24,7 @@ struct ResultListView: View {
                     }
                 }
             } else {
-                ForEach(posts.filter{ $0.category == category}){ post in
+                ForEach(posts.filter{ $0.category.contains(category)}){ post in
                     NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0])){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)

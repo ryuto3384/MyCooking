@@ -30,7 +30,7 @@ class UploadViewModel: ObservableObject {
         
     }
     
-    func uploadPost(title: String, introduction: String, methodValues: [String], ingredientsPeople: String, ingredientsValues: [String], ingredientsAmount: [String], category: String) async throws {
+    func uploadPost(title: String, introduction: String, methodValues: [String], ingredientsPeople: String, ingredientsValues: [String], ingredientsAmount: [String], category: [String]) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let uiImage = uiImage else { return }
 

@@ -8,19 +8,25 @@
 import SwiftUI
 
 struct ProfileView: View {
-    let user: User
+
+    @StateObject var viewModel: ProfileViewModel
+    
+    init(user: User) {
+        self._viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+    }
     
     var body: some View {
         
         
+        
         ScrollView {
             
-            ProfileHeaderView(user: user)
+            ProfileHeaderView(user: viewModel.user)
             
             Divider()
             
             //grid
-            PostGridView(user: user)
+            PostGridView(user: viewModel.user, posts: viewModel.posts)
         }
         .navigationTitle("MyPage")
         .navigationBarTitleDisplayMode(.inline)

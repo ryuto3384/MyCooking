@@ -51,7 +51,11 @@ struct PostService {
     }
     
     static func fetchUserFavoritePosts(id: [String]) async throws -> [Post] {
-        let snapshot = try await postsCollection.whereField("id", in: id).getDocuments()
-        return try snapshot.documents.compactMap({ try $0.data(as: Post.self) })
+        if !id.isEmpty {
+            let snapshot = try await postsCollection.whereField("id", in: id).getDocuments()
+            return try snapshot.documents.compactMap({ try $0.data(as: Post.self) })
+        } else {
+            return []
+        }
     }
 }

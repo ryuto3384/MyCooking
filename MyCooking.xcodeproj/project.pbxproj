@@ -11,6 +11,7 @@
 		2B4D30952B590EC100CF0461 /* FavoriteGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */; };
 		2B4D30972B591BAF00CF0461 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30962B591BAF00CF0461 /* ProfileHeaderViewModel.swift */; };
 		2B4D309A2B59307E00CF0461 /* ProfileAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */; };
+		2B4D78A22B5CE7FF00FFC513 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D78A12B5CE7FF00FFC513 /* ProfileViewModel.swift */; };
 		2B6C62342AB18A1400B2D8D1 /* MyCookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62332AB18A1400B2D8D1 /* MyCookingApp.swift */; };
 		2B6C62362AB18A1400B2D8D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62352AB18A1400B2D8D1 /* ContentView.swift */; };
 		2B6C62382AB18A1500B2D8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */; };
@@ -96,6 +97,7 @@
 		2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGridViewModel.swift; sourceTree = "<group>"; };
 		2B4D30962B591BAF00CF0461 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAuthService.swift; sourceTree = "<group>"; };
+		2B4D78A12B5CE7FF00FFC513 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2B6C62302AB18A1400B2D8D1 /* MyCooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6C62332AB18A1400B2D8D1 /* MyCookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCookingApp.swift; sourceTree = "<group>"; };
 		2B6C62352AB18A1400B2D8D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 			children = (
 				2BE2846D2B4688800095F88D /* EditProfileViewModel.swift */,
 				2B4D30962B591BAF00CF0461 /* ProfileHeaderViewModel.swift */,
+				2B4D78A12B5CE7FF00FFC513 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				2B740F0D2B4EA0A600735A36 /* ResultCellView.swift in Sources */,
 				2BE283F22B4682A30095F88D /* CreateUserNameView.swift in Sources */,
 				2BE283C32B4679590095F88D /* UserStatView.swift in Sources */,
+				2B4D78A22B5CE7FF00FFC513 /* ProfileViewModel.swift in Sources */,
 				2BE283A72B4676A00095F88D /* Profile.swift in Sources */,
 				2B4D30932B590EA400CF0461 /* FavoriteGridView.swift in Sources */,
 				2BE283DC2B4681040095F88D /* ContentViewModel.swift in Sources */,

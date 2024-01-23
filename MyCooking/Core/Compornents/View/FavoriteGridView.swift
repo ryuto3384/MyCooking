@@ -24,25 +24,29 @@ struct FavoriteGridView: View {
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
     var body: some View {
-            LazyVGrid(columns: gridItem, spacing: 1){
-                ForEach(viewModel.posts) { post in
-                    NavigationLink(value: post) {
-                        KFImage(URL(string: post.imageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: imageDimension, height: imageDimension)
-                            .clipped()
-                        
+        if !viewModel.fetchTime {
+            if !viewModel.posts.isEmpty {
+                LazyVGrid(columns: gridItem, spacing: 1){
+                    ForEach(viewModel.posts) { post in
+                        NavigationLink(value: post) {
+                            KFImage(URL(string: post.imageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: imageDimension, height: imageDimension)
+                                .clipped()
+                            
+                        }
                     }
-                }
-            }.navigationDestination(for: Post.self, destination: { post in
-                showRecipeView(post: post, user: viewModel.user)
-            })
-            .onAppear{
-                Task { try await viewModel.fetchUserPosts() }
+                }.navigationDestination(for: Post.self, destination: { post in
+                    showRecipeView(post: post, user: viewModel.user)
+                })
+            } else {
+                NotingView(text: "お気に入り登録していません")
             }
-            
-    }
+        } else {
+            ProgressView()
+        }
+    }//someview
 }
 
 #Preview {

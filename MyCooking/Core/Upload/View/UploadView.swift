@@ -29,8 +29,7 @@ struct UploadView: View {
     
     @State private var showAlert = false
     
-    @State private var selectedCategory = RecipeCategory.breakfast
-    let categories = RecipeCategory.allCases
+    @State private var selectedCategory = [String]()
     
     var body: some View {
         VStack {
@@ -49,13 +48,15 @@ struct UploadView: View {
                 Spacer()
                 
                 Button {
+                    //print(selectedCategory)
+                    
                     if viewModel.postImage != nil {
                         if title.isEmpty || methodValues.allSatisfy({ $0.isEmpty }) || ingredientsValues.allSatisfy({ $0.isEmpty }) || ingredientsAmount.allSatisfy({ $0.isEmpty }) || introduction.isEmpty {
                             
                             showAlert = true
                         } else {
                             Task {
-                                try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory.rawValue)
+                                try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory)
                                 clearPostDateAndReturnToFeed()
                                 
                                 try await viewModel.updateCount(user: user)
@@ -164,11 +165,7 @@ struct UploadView: View {
                     TextField("レシピの紹介文", text: $introduction, axis: .vertical)
                         .padding(10)
                     
-                    Picker("カテゴリー選択", selection: $selectedCategory) {
-                        ForEach(categories, id: \.self) { category in
-                            Text("\(category.rawValue)").tag(category)
-                        }
-                    }
+                    UploadHashView(selectedTags: $selectedCategory)
                     
                     
                 }
@@ -189,7 +186,7 @@ struct UploadView: View {
         ingredientsAmount = [""]
         viewModel.postImage = nil
         viewModel.selectedImage = nil
-        selectedCategory = RecipeCategory.breakfast
+        selectedCategory = []
         tabIndex = 2
     }
     

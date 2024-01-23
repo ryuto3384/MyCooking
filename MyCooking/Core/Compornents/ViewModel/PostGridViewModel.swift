@@ -9,21 +9,19 @@ import SwiftUI
 
 class PostGridViewModel: ObservableObject {
     @Published var user: User
-    @Published var posts = [Post]()
+    @Published var posts: [Post]
+    @Published var fetchTime: Bool = false
     
-    init(user: User, posts: [Post] = [Post]()) {
+    init(user: User, posts: [Post]) {
         self.user = user
         self.posts = posts
-    }
-    
-    init(user: User) {
-        self.user = user
-        
         Task { try await fetchUserPosts() }
     }
-    
+     
     @MainActor
     func fetchUserPosts() async throws{
+        print("呼び出された")
+        fetchTime = true
         
         self.user = try await UserService.fetchUser(withUid: user.id)
         
@@ -32,5 +30,7 @@ class PostGridViewModel: ObservableObject {
         for i in 0 ..< posts.count {
             posts[i].user = self.user
         }
+        
+        fetchTime = false
     }
 }
