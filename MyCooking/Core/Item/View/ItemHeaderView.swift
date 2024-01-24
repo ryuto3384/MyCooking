@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ItemHeaderView: View {
     
+    @State private var isActive: Bool = false
+    
     private let gridItem : [GridItem] = [
         .init(.flexible(), spacing: 1),
         .init(.flexible(), spacing: 1),

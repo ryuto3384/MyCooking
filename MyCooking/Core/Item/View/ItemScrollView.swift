@@ -19,35 +19,50 @@ struct ItemScrollView: View {
     var body: some View {
         
         //検索したcategoryを表示する
+        let filterPosts = posts.filter { post in
+            return post.category.contains(category)
+        }
         
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack {
-                ForEach(posts.filter{ $0.category.contains(category) }){ post in
-                    if let user = post.user {
-                        NavigationLink(destination: showRecipeView(post: post, user: user)){
-                            VStack{
-                                KFImage(URL(string: post.imageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageDimension, height: imageDimension)
-                                    .clipped()
+        if filterPosts.isEmpty{
+            
+        } else {
+            VStack {
+                Text(category)
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(filterPosts){ post in
+                            if let user = post.user {
+                                NavigationLink(destination: showRecipeView(post: post, user: user)){
+                                    VStack{
+                                        KFImage(URL(string: post.imageUrl))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: imageDimension, height: imageDimension)
+                                            .clipped()
+                                        
+                                        Text(post.introduction)
+                                            .font(.caption)
+                                        Spacer()
+                                    }
+                                    .frame(width: imageDimension, height: imageHeight)
+                                }
                                 
-                                Text(post.introduction)
-                                    .font(.caption)
-                                Spacer()
                             }
-                            .frame(width: imageDimension, height: imageHeight)
+                            
+                            
+                            
                         }
-                        
                     }
                     
                     
-                    
-                }
+                }//scroll
             }
-            
-            
         }
+        
+        
         
     }
 }

@@ -11,7 +11,7 @@ struct ItemView: View {
     
     @State private var searchText = ""
     
-    let categories = RecipeCategory.allCases
+    let categories:[String] = RecipeCategory.allCases.map{ $0.rawValue }
     
     @StateObject var viewModel = ItemViewModel()
 
@@ -33,15 +33,8 @@ struct ItemView: View {
                                 .padding(.horizontal)
                         }
                         ForEach(categories, id: \.self) { category in
-                            VStack{
-                                Text(category.rawValue)
-                                    .font(.title)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    
-                                
-                                ItemScrollView(category: category.rawValue, posts: viewModel.posts)
-                            }
-                            .padding(.horizontal)
+                            ItemScrollView(category: category, posts: viewModel.posts)
+                                .padding(.horizontal)
                         }
                     }
                     .searchable(text: $searchText,prompt: "レシピ検索")
