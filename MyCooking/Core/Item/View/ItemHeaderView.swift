@@ -15,7 +15,7 @@ struct ItemHeaderView: View {
         .init(.flexible(), spacing: 1)
     ]
     
-    let categories = RecipeCategory.allCases
+    let categories:[String]  = RecipeCategory.allCases.map{ $0.rawValue }
     
     let posts: [Post]
     
@@ -25,10 +25,8 @@ struct ItemHeaderView: View {
         VStack {
             LazyVGrid(columns: gridItem, spacing: 1){
                 ForEach(shuffledCategory, id: \.self) { category in
-                    
-                    
-                    NavigationLink(destination: ItemSearchView(category: category.rawValue, posts: posts)){
-                        Text(category.rawValue)
+                    NavigationLink(destination: ItemSearchView(category: category, posts: posts)){
+                        Text(category)
                             .frame(maxWidth: 200, minHeight: 60)
                             .background(Color(.black))
                             .foregroundStyle(Color.white)

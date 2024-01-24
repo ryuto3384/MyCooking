@@ -24,7 +24,12 @@ struct ResultListView: View {
                     }
                 }
             } else {
-                ForEach(posts.filter{ $0.category.contains(category)}){ post in
+                
+                let filterPosts = posts.filter { post in
+                    return post.category.contains(category)
+                }
+                
+                ForEach(filterPosts) { post in
                     NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0])){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
@@ -34,6 +39,7 @@ struct ResultListView: View {
             
             
         }
+        .navigationBarHidden(true)
         .listStyle(.inset)
     }
 }

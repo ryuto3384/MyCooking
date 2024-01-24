@@ -31,7 +31,7 @@ struct StackCardView: View {
                 KFImage(URL(string: food.imageUrl))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: abs(size.width / 1.5 + topOffset), height: abs(size.width / 1.5))
+                    .frame(width: abs(size.width / 1.2 + topOffset), height: abs(size.width / 1.2))
                     .cornerRadius(15)
                     .offset(y: topOffset)
             }
