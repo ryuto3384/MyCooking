@@ -16,33 +16,66 @@ struct SearchView: View {
         NavigationStack {
             ScrollView{
                 LazyVStack(spacing: 12) {
-                    ForEach(viewModel.users) { user in
-                        
-                        NavigationLink(value: user) {
-                            HStack{
-                                CircularProfileImageView(user: user, size: .xSmall)
-                                
-                                VStack(alignment: .leading){
-                                    Text(user.username)
-                                        .fontWeight(.semibold)
+                    if searchText == "" {
+                        ForEach(viewModel.users){ user in
+                            
+                            NavigationLink(value: user) {
+                                HStack{
+                                    CircularProfileImageView(user: user, size: .xSmall)
                                     
-                                    if let fullname = user.fullname {
-                                        Text(fullname)
+                                    VStack(alignment: .leading){
+                                        Text(user.username)
+                                            .fontWeight(.semibold)
+                                        
+                                        if let fullname = user.fullname {
+                                            Text(fullname)
+                                        }
                                     }
+                                    .font(.footnote)
+                                    
+                                    
+                                    Spacer()
+                                    
                                 }
-                                .font(.footnote)
-                                
-                                
-                                Spacer()
-                                
+                                .foregroundStyle(.black)
+                                .padding(.horizontal)
                             }
-                            .foregroundStyle(.black)
-                            .padding(.horizontal)
+                            
+                            
+                            
                         }
-                        
-                        
-
+                    } else {
+                        ForEach(viewModel.users.filter{ user in
+                            return user.username.lowercased().contains(searchText.lowercased())
+                        }) { user in
+                            
+                            NavigationLink(value: user) {
+                                HStack{
+                                    CircularProfileImageView(user: user, size: .xSmall)
+                                    
+                                    VStack(alignment: .leading){
+                                        Text(user.username)
+                                            .fontWeight(.semibold)
+                                        
+                                        if let fullname = user.fullname {
+                                            Text(fullname)
+                                        }
+                                    }
+                                    .font(.footnote)
+                                    
+                                    
+                                    Spacer()
+                                    
+                                }
+                                .foregroundStyle(.black)
+                                .padding(.horizontal)
+                            }
+                            
+                            
+                            
+                        }
                     }
+                    
                 }
                 .padding(.top, 8)
                 .searchable(text: $searchText,prompt: "検索...")

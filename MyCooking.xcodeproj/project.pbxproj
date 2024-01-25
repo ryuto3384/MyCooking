@@ -91,6 +91,7 @@
 		2BEE36282B624CD40090CDD4 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE36272B624CD40090CDD4 /* MainTabViewModel.swift */; };
 		2BEE362A2B62530B0090CDD4 /* ItemSearchTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE36292B62530B0090CDD4 /* ItemSearchTextView.swift */; };
 		2BEE362C2B62540F0090CDD4 /* ResultTextListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE362B2B62540F0090CDD4 /* ResultTextListView.swift */; };
+		2BEE362E2B6263C00090CDD4 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE362D2B6263C00090CDD4 /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +152,7 @@
 		2BEE36272B624CD40090CDD4 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		2BEE36292B62530B0090CDD4 /* ItemSearchTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSearchTextView.swift; sourceTree = "<group>"; };
 		2BEE362B2B62540F0090CDD4 /* ResultTextListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTextListView.swift; sourceTree = "<group>"; };
+		2BEE362D2B6263C00090CDD4 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +399,7 @@
 				2B740EF72B4BCC0E00735A36 /* ItemScrollView.swift */,
 				2B740EF92B4BCF1500735A36 /* ItemSearchView.swift */,
 				2BEE36292B62530B0090CDD4 /* ItemSearchTextView.swift */,
+				2BEE362D2B6263C00090CDD4 /* SearchBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				2BE283B52B4677C20095F88D /* TicktokView.swift in Sources */,
 				2BE283E22B4681420095F88D /* PostService.swift in Sources */,
 				2BE283F62B4682CC0095F88D /* CompleateSigunUpView.swift in Sources */,
+				2BEE362E2B6263C00090CDD4 /* SearchBar.swift in Sources */,
 				2BE283E82B4682140095F88D /* AuthService.swift in Sources */,
 				2BD33B9A2B562569004FD3E6 /* Category.swift in Sources */,
 				2B6C62342AB18A1400B2D8D1 /* MyCookingApp.swift in Sources */,

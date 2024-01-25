@@ -10,8 +10,8 @@ import SwiftUI
 struct ItemView: View {
     
     @State private var searchText = ""
-    @State private var isSearchActive = false
-    
+    @State private var isActive: Bool = false
+        
     let categories:[String] = RecipeCategory.allCases.map{ $0.rawValue }
     
     @ObservedObject var viewModel: MainTabViewModel
@@ -21,6 +21,11 @@ struct ItemView: View {
             ZStack{
                 ScrollView{
                     LazyVStack{
+                       
+                        SearchBar(text: $searchText, viewModel: viewModel)
+                        
+
+                        
                         VStack{
                             Text("キーワード")
                                 .font(.title)
@@ -36,16 +41,11 @@ struct ItemView: View {
                                 .padding(.horizontal)
                         }
                     }
-                    .searchable(text: $searchText,prompt: "レシピ検索")
-                    .onChange(of: searchText) { newValue in
-                        if !newValue.isEmpty {
-                            isSearchActive = true
-                        }
-                    }
+                    
+                    
                 }
-                .navigationDestination(isPresented: $isSearchActive) {
-                    ItemSearchTextView(searchText: searchText, posts: viewModel.posts)
-                }
+                
+                
                 .blur(radius: viewModel.showProgressFlag ? 3 : 0)
                 .disabled(viewModel.showProgressFlag)
                 //ツイッターのような更新
@@ -64,7 +64,10 @@ struct ItemView: View {
                 }
                 
             }
+            
+            
         }
+        
         
         
         
