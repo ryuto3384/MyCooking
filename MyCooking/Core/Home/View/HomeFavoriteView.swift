@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeFavoriteView: View {
     
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {

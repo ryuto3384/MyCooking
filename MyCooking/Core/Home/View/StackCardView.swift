@@ -10,7 +10,7 @@ import Kingfisher
 
 struct StackCardView: View {
     
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     var food: Post
     
     //ジェスチャー
@@ -125,10 +125,6 @@ struct StackCardView: View {
         }
     }
     
-}
-
-#Preview {
-    HomeView()
 }
 
 extension View {

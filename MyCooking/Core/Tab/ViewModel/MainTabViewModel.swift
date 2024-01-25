@@ -8,6 +8,8 @@
 import SwiftUI
 
 class MainTabViewModel: ObservableObject {
+    
+    
     @Published var posts = [Post]()
     
     @Published var displaying_posts: [Post]?
@@ -54,9 +56,9 @@ class MainTabViewModel: ObservableObject {
         guard displaying_posts != nil else {
             return
         }
-//        for post in dispPosts{
-//            print(post.title)
-//        }
+
         showProgressFlag = false
     }
+
 }
+

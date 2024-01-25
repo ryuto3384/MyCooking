@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeSelectedCategoryView: View {
     
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     @Environment(\.dismiss) private var dismiss
     
     private let gridItem : [GridItem] = [

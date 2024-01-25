@@ -12,11 +12,13 @@ struct MainTabView: View {
     let user: User
     
     @State private var selectedIndex = 2
+    
+    @StateObject var viewModel = MainTabViewModel()
         
     var body: some View {
         TabView(selection: $selectedIndex){
             Group {
-                ItemView()
+                ItemView(viewModel: viewModel)
                     .onAppear{
                         selectedIndex = 0
                     }
@@ -34,7 +36,7 @@ struct MainTabView: View {
                             .padding(.top, 20)
                     }
                     .tag(1)
-                HomeView()
+                HomeView(viewModel: viewModel)
                     .onAppear{
                         selectedIndex = 2
                     }
@@ -62,7 +64,9 @@ struct MainTabView: View {
                     }
                     .tag(4)
             }
+            
         }
+        .disabled(viewModel.showProgressFlag)
         //これで選択したものに色を付けられる
         .accentColor(.black)
     }

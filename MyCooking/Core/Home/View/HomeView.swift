@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject var viewModel: HomeViewModel = HomeViewModel()
+    @ObservedObject var viewModel: MainTabViewModel
     
     @State private var isPresented = false
     @State private var isShowCategory = false
@@ -21,85 +21,94 @@ struct HomeView: View {
     var body: some View {
         
         NavigationStack {
-            VStack {
-                
-                ZStack {
-                    if viewModel.showProgressFlag {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    } else {
-                        if let foods = viewModel.displaying_posts {
-                            if foods.isEmpty {
-                                Button{
-                                    Task{
-                                        try await viewModel.fetchPosts()
+            ZStack{
+                VStack{
+                    VStack {
+                        ZStack {
+                            if let foods = viewModel.displaying_posts {
+                                if foods.isEmpty {
+                                    Button{
+                                        Task{
+                                            try await viewModel.fetchPosts()
+                                        }
+                                    } label: {
+                                        Text("更新する")
+                                            .font(.caption)
+                                            .foregroundStyle(Color.gray)
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                     }
-                                } label: {
-                                    Text("更新する")
-                                        .font(.caption)
-                                        .foregroundStyle(Color.gray)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                    
+                                    
+                                } else {
+                                    ForEach(foods){ food in
+                                        StackCardView(food: food)
+                                            .environmentObject(viewModel)
+                                    }
                                 }
-                                
-                                
                             } else {
-                                ForEach(foods){ food in
-                                    StackCardView(food: food)
-                                        .environmentObject(viewModel)
-                                }
+                                Text("")
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                             }
                         }
                     }
+                    .padding()
+                    
+                    HStack(spacing: 10){
+                        Button{
+                            doSwipe()
+                        } label: {
+                            Text("Bad")
+                                .bold()
+                                .padding()
+                                .frame(width: buttonSize, height: 50)
+                                .foregroundColor(Color.black)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.purple, lineWidth: 3)
+                                )
+                        }
+                        .disabled(viewModel.displaying_posts?.isEmpty ?? false)
+                        .opacity((viewModel.displaying_posts?.isEmpty ?? false) ? 0.6 : 1)
+                        
+                        Button{
+                            print("menu")
+                            isPresented.toggle()
+                        }label: {
+                            Image(systemName: "list.bullet.rectangle.portrait")
+                                .font(.system(size: 45, weight: .light))
+                                .foregroundStyle(Color.black)
+                        }
+                        Button{
+                            doSwipe(rightSwipe: true)
+                        }label: {
+                            Text("Good")
+                                .bold()
+                                .padding()
+                                .frame(width: buttonSize, height: 50)
+                                .foregroundColor(Color.black)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.purple, lineWidth: 3)
+                                )
+                        }
+                        .disabled(viewModel.displaying_posts?.isEmpty ?? false)
+                        .opacity((viewModel.displaying_posts?.isEmpty ?? false) ? 0.6 : 1)
+                        
+                        
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 100)
+                    .padding(.top, 10)
                 }
-                .padding()
+                .blur(radius: viewModel.showProgressFlag ? 3 : 0)
+                .disabled(viewModel.showProgressFlag)
                 
-                HStack(spacing: 10){
-                    Button{
-                        doSwipe()
-                    } label: {
-                        Text("Bad")
-                            .bold()
-                            .padding()
-                            .frame(width: buttonSize, height: 50)
-                            .foregroundColor(Color.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.purple, lineWidth: 3)
-                            )
-                    }
-                    .disabled(viewModel.displaying_posts?.isEmpty ?? false)
-                    .opacity((viewModel.displaying_posts?.isEmpty ?? false) ? 0.6 : 1)
-                    
-                    Button{
-                        print("menu")
-                        isPresented.toggle()
-                    }label: {
-                        Image(systemName: "list.bullet.rectangle.portrait")
-                            .font(.system(size: 45, weight: .light))
-                            .foregroundStyle(Color.black)
-                    }
-                    Button{
-                        doSwipe(rightSwipe: true)
-                    }label: {
-                        Text("Good")
-                            .bold()
-                            .padding()
-                            .frame(width: buttonSize, height: 50)
-                            .foregroundColor(Color.black)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.purple, lineWidth: 3)
-                            )
-                    }
-                    .disabled(viewModel.displaying_posts?.isEmpty ?? false)
-                    .opacity((viewModel.displaying_posts?.isEmpty ?? false) ? 0.6 : 1)
-                    
-                    
+                if viewModel.showProgressFlag {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .background(Color.black.opacity(0.2))
+                        .zIndex(1)
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 100)
-                .padding(.top, 10)
-                
                 
             }
             .sheet(isPresented: $isPresented) {
@@ -123,7 +132,8 @@ struct HomeView: View {
                     }
                 }
             }
-        }
+        }//navigation
+        
         
     }
     
@@ -146,5 +156,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(viewModel: MainTabViewModel())
 }

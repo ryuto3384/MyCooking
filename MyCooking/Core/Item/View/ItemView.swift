@@ -10,16 +10,15 @@ import SwiftUI
 struct ItemView: View {
     
     @State private var searchText = ""
+    @State private var isSearchActive = false
     
     let categories:[String] = RecipeCategory.allCases.map{ $0.rawValue }
     
-    @StateObject var viewModel = ItemViewModel()
-
+    @ObservedObject var viewModel: MainTabViewModel
+    
     var body: some View {
-        if viewModel.fetchTime {
-            ProgressView("Now loading")
-        } else {
-            NavigationStack {
+        NavigationStack {
+            ZStack{
                 ScrollView{
                     LazyVStack{
                         VStack{
@@ -38,7 +37,17 @@ struct ItemView: View {
                         }
                     }
                     .searchable(text: $searchText,prompt: "レシピ検索")
+                    .onChange(of: searchText) { newValue in
+                        if !newValue.isEmpty {
+                            isSearchActive = true
+                        }
+                    }
                 }
+                .navigationDestination(isPresented: $isSearchActive) {
+                    ItemSearchTextView(searchText: searchText, posts: viewModel.posts)
+                }
+                .blur(radius: viewModel.showProgressFlag ? 3 : 0)
+                .disabled(viewModel.showProgressFlag)
                 //ツイッターのような更新
                 .refreshable{
                     do {
@@ -47,13 +56,21 @@ struct ItemView: View {
                         }
                     }
                 }
+                if viewModel.showProgressFlag {
+                    ProgressView("Now loading")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        .background(Color.black.opacity(0.2))
+                        .zIndex(1)
+                }
+                
             }
         }
+        
         
         
     }
 }
 
 #Preview {
-    ItemView()
+    ItemView(viewModel: MainTabViewModel())
 }
