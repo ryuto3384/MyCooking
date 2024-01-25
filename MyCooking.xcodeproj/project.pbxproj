@@ -90,6 +90,7 @@
 		2BE283F62B4682CC0095F88D /* CompleateSigunUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283F52B4682CC0095F88D /* CompleateSigunUpView.swift */; };
 		2BE2846C2B4688430095F88D /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE2846B2B4688430095F88D /* CurrentUserProfileView.swift */; };
 		2BE2846E2B4688800095F88D /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE2846D2B4688800095F88D /* EditProfileViewModel.swift */; };
+		2BEE36262B624A3B0090CDD4 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE36252B624A3B0090CDD4 /* MainTabViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +150,7 @@
 		2BE283F52B4682CC0095F88D /* CompleateSigunUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleateSigunUpView.swift; sourceTree = "<group>"; };
 		2BE2846B2B4688430095F88D /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		2BE2846D2B4688800095F88D /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		2BEE36252B624A3B0090CDD4 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -499,7 +501,8 @@
 		2BE283AF2B46774A0095F88D /* Tab */ = {
 			isa = PBXGroup;
 			children = (
-				2BE283B02B4677840095F88D /* MainTabView.swift */,
+				2BEE36242B624A260090CDD4 /* View */,
+				2BEE36232B624A1F0090CDD4 /* ViewModel */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -578,6 +581,22 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2BEE36232B624A1F0090CDD4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2BEE36252B624A3B0090CDD4 /* MainTabViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2BEE36242B624A260090CDD4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2BE283B02B4677840095F88D /* MainTabView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -703,6 +722,7 @@
 				2BE283F02B4682850095F88D /* AddEmailView.swift in Sources */,
 				2BE283AB2B4677280095F88D /* PostGridView.swift in Sources */,
 				2BE283B72B4677CD0095F88D /* HomeView.swift in Sources */,
+				2BEE36262B624A3B0090CDD4 /* MainTabViewModel.swift in Sources */,
 				2BE283B32B4677B20095F88D /* ItemView.swift in Sources */,
 				2B740F022B4D1F7A00735A36 /* StackCardView.swift in Sources */,
 				2BE283A92B4676CC0095F88D /* ProfileHeaderView.swift in Sources */,
