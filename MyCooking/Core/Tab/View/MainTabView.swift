@@ -64,6 +64,7 @@ struct MainTabView: View {
                     }
                     .tag(4)
             }
+            .toolbarBackground(.visible, for: .tabBar).toolbarBackground(Color.indigo, for: .tabBar)
             
         }
         .disabled(viewModel.showProgressFlag)
@@ -71,6 +72,8 @@ struct MainTabView: View {
         .accentColor(.black)
     }
 }
+
+
 
 
 

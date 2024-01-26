@@ -41,6 +41,7 @@ struct SearchBar: View {
                     } label: {
                         Text("検索")
                             .frame(width: 40, height: 36)
+                            .foregroundStyle(.black)
                     }
                     .padding(.trailing, 6)
                     

@@ -13,8 +13,8 @@ struct ItemScrollView: View {
     let category: String
     let posts: [Post]
     
-    private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 5) - 1
-    private let imageHeight: CGFloat = (UIScreen.main.bounds.width / 3) - 1
+    private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 4) - 1
+    private let imageHeight: CGFloat = (UIScreen.main.bounds.width / 2.5) - 1
     
     var body: some View {
         
@@ -29,10 +29,12 @@ struct ItemScrollView: View {
             VStack {
                 Text(category)
                     .font(.title)
+                    .foregroundStyle(Color("TextColor1"))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
+                    LazyHStack(spacing: 10) {
                         ForEach(filterPosts){ post in
                             if let user = post.user {
                                 NavigationLink(destination: showRecipeView(post: post, user: user)){
@@ -42,9 +44,15 @@ struct ItemScrollView: View {
                                             .scaledToFill()
                                             .frame(width: imageDimension, height: imageDimension)
                                             .clipped()
+                                            .shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
+                                            
+                                        
                                         
                                         Text(post.introduction)
                                             .font(.caption)
+                                            .foregroundStyle(Color("TextColor1"))
+                                            .multilineTextAlignment(.leading)
+                                            .shadow(color: .black.opacity(0.75), radius: 3, x: 1, y: 1)
                                         Spacer()
                                     }
                                     .frame(width: imageDimension, height: imageHeight)
@@ -66,3 +74,8 @@ struct ItemScrollView: View {
         
     }
 }
+
+#Preview {
+    ItemView(viewModel: MainTabViewModel())
+}
+
