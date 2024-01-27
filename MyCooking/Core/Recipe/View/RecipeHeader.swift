@@ -16,6 +16,8 @@ struct RecipeHeaderView: View {
     @Binding var showEditSheet: Bool
     @State private var showMenu = false
     
+    @ObservedObject var viewModel: ShowRecipeViewModel
+    
     var body: some View {
         VStack{
             HStack{
@@ -49,7 +51,11 @@ struct RecipeHeaderView: View {
                     }
                     
                     Button(role: .destructive) {
-                        print("削除")
+                        Task {
+                            try await viewModel.deleteRecipe()
+                            try await viewModel.updateCount(user: viewModel.user)
+                        }
+                        dismiss()
                     } label: {
                         Label("レシピを削除", systemImage: "trash")
                     }

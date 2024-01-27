@@ -58,4 +58,26 @@ struct PostService {
             return []
         }
     }
+    
+    
+    static func fetchPost(id: String) async throws -> Post {
+        let document = postsCollection.document(id)
+       let snapshot = try await document.getDocument()
+       return try snapshot.data(as: Post.self)
+    }
+    
+    
+    static func deletePost(id: String) async throws {
+        do {
+            let document = postsCollection.document(id)
+
+            try await document.delete()
+
+            //print("Document successfully deleted")
+        } catch {
+            print("DEBUG ERROR: \(error)")
+            throw error
+        }
+    }
+    
 }

@@ -15,22 +15,12 @@ struct RecipeEditView: View {
     
     @ObservedObject var viewModel: ShowRecipeViewModel
     
-    @State private var introduction = ""
     @State private var imagePickerPresented = false
     @State private var photoItem: PhotosPickerItem?
-    
-    @State private var title = ""
-    @State private var methodValues: [String] = [""]
-    
-    @State private var ingredientsPeople = ""
-    @State private var ingredientsValues: [String] = [""]
-    @State private var ingredientsAmount: [String] = [""]
     
     @State private var showAlert = false
     
     @State private var selectedCategory = [String]()
-    
-    @State private var imageURL = ""
     
     init(viewModel: ShowRecipeViewModel) {
         self.viewModel = viewModel
@@ -45,7 +35,7 @@ struct RecipeEditView: View {
                     Button("閉じる") {
                         dismiss()
                     }
-                     
+                    
                     Spacer()
                     
                     Text("レシピ編集")
@@ -56,9 +46,9 @@ struct RecipeEditView: View {
                     
                     Button {
                         Task {
-                            try await /*viewModel.updateUserData()*/
-                            dismiss()
+                            try await viewModel.updateRecipe()
                         }
+                        dismiss()
                         
                     } label: {
                         Text("完了")
@@ -90,11 +80,10 @@ struct RecipeEditView: View {
                         }
                         
                     } else {
-                        //ここの画像はあとから料理のイメージのものにする
                         Button {
                             imagePickerPresented.toggle()
                         }label: {
-                            KFImage(URL(string: imageURL))
+                            KFImage(URL(string: viewModel.imageURL))
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 300, height: 300)
@@ -106,7 +95,7 @@ struct RecipeEditView: View {
                     }
                     //区切り線
                     Divider()
-                    TextField("タイトル", text: $title)
+                    TextField("タイトル", text: $viewModel.title)
                         .padding(.top, 20)
                         .padding(.horizontal, 10)
                     Divider()
@@ -115,12 +104,12 @@ struct RecipeEditView: View {
                         Text("作り方")
                             .font(.title2)
                         
-                        ForEach(0..<methodValues.count, id: \.self) { index in
+                        ForEach(0..<viewModel.methodValues.count, id: \.self) { index in
                             VStack{
                                 HStack{
                                     Text("\(index + 1)")
                                         .frame(width: 20, height: 20)
-                                    TextField("野菜を切る", text: $methodValues[index], axis: .vertical)
+                                    TextField("野菜を切る", text: $viewModel.methodValues[index], axis: .vertical)
                                 }
                                 Divider()
                             }
@@ -131,7 +120,7 @@ struct RecipeEditView: View {
                             Text("+")
                                 .font(.title)
                             Button("作り方を追加"){
-                                methodValues.append("")
+                                viewModel.methodValues.append("")
                             }
                             
                         }
@@ -144,11 +133,11 @@ struct RecipeEditView: View {
                         Text("材料")
                             .font(.title2)
                         
-                        TextField("2人分", text: $ingredientsPeople)
-                        ForEach(0..<ingredientsValues.count, id: \.self) { index in
+                        TextField("2人分", text: $viewModel.ingredientsPeople)
+                        ForEach(0..<viewModel.ingredientsValues.count, id: \.self) { index in
                             HStack{
-                                TextField("食材",text: $ingredientsValues[index])
-                                TextField("〇g", text: $ingredientsAmount[index])
+                                TextField("食材",text: $viewModel.ingredientsValues[index])
+                                TextField("〇g", text: $viewModel.ingredientsAmount[index])
                             }
                         }
                         
@@ -156,18 +145,18 @@ struct RecipeEditView: View {
                             Text("+")
                                 .font(.title)
                             Button("食材を追加"){
-                                ingredientsValues.append("")
-                                ingredientsAmount.append("")
+                                viewModel.ingredientsValues.append("")
+                                viewModel.ingredientsAmount.append("")
                             }
                             
                         }
                     }
                     .padding(10)
                     
-                    TextField("レシピの紹介文", text: $introduction, axis: .vertical)
+                    TextField("レシピの紹介文", text: $viewModel.introduction, axis: .vertical)
                         .padding(10)
                     
-                    UploadHashView(selectedTags: $selectedCategory)
+                    UploadHashView(selectedTags: $viewModel.selectedCategory)
                     
                     
                 }
@@ -175,22 +164,12 @@ struct RecipeEditView: View {
                 
             }
         }
-        .onAppear{
-            loadDataFromViewModel()
-        }
         .photosPicker(isPresented: $imagePickerPresented, selection: $viewModel.selectedImage)
+        
+        
     }
     
-    private func loadDataFromViewModel(){
-        self.imageURL = viewModel.post.imageUrl
-        self.introduction = viewModel.post.introduction
-        self.title = viewModel.post.title
-        self.methodValues = viewModel.post.methodValues
-        self.ingredientsPeople = viewModel.post.ingredientsPeople
-        self.ingredientsValues = viewModel.post.ingredientsValues
-        self.ingredientsAmount = viewModel.post.ingredientsAmount
-        self.selectedCategory = viewModel.post.category
-    }
+    
 }
 
 #Preview {

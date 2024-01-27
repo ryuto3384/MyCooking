@@ -24,7 +24,7 @@ struct showRecipeView: View {
     var body: some View {
         VStack {
             if curCheck {
-                RecipeHeaderView(postTitle: "Test", showEditSheet: $showEditSeet)
+                RecipeHeaderView(postTitle: "Test", showEditSheet: $showEditSeet, viewModel: viewModel)
             }
             ScrollView {
                 VStack{

@@ -20,7 +20,7 @@ class PostGridViewModel: ObservableObject {
      
     @MainActor
     func fetchUserPosts() async throws{
-        print("呼び出された")
+        //print("呼び出された")
         fetchTime = true
         
         self.user = try await UserService.fetchUser(withUid: user.id)
