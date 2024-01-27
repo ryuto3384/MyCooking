@@ -11,9 +11,13 @@ import Kingfisher
 struct PostGridView: View {
     @StateObject var viewModel: PostGridViewModel
     
-    init(user: User, posts: [Post]) {
+    let currentCheck: Bool
+    
+    init(user: User, posts: [Post], currentCheck: Bool) {
         self._viewModel = StateObject(wrappedValue: PostGridViewModel(user: user, posts: posts))
+        self.currentCheck = currentCheck
     }
+    
     
     private let gridItem : [GridItem] = [
         .init(.flexible(), spacing: 1),
@@ -38,7 +42,7 @@ struct PostGridView: View {
                         }
                     }
                 }.navigationDestination(for: Post.self, destination: { post in
-                    showRecipeView(post: post, user: viewModel.user)
+                    showRecipeView(post: post, user: viewModel.user, curCheck: currentCheck)
                 })
             }else {
                 NotingView(text: "投稿していません")
@@ -50,5 +54,5 @@ struct PostGridView: View {
 }
 
 #Preview {
-    PostGridView(user: User.MOCK_USERS[0], posts: Post.MOCK_POSTS)
+    PostGridView(user: User.MOCK_USERS[0], posts: Post.MOCK_POSTS, currentCheck: true)
 }

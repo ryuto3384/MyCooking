@@ -11,9 +11,13 @@ import Kingfisher
 struct FavoriteGridView: View {
     @StateObject var viewModel: FavoriteGridViewModel
     
-    init(user: User) {
+    let currentCheck: Bool
+    
+    init(user: User, currentCheck: Bool) {
         self._viewModel = StateObject(wrappedValue: FavoriteGridViewModel(user: user))
+        self.currentCheck = currentCheck
     }
+    
     
     private let gridItem : [GridItem] = [
         .init(.flexible(), spacing: 1),
@@ -38,7 +42,7 @@ struct FavoriteGridView: View {
                         }
                     }
                 }.navigationDestination(for: Post.self, destination: { post in
-                    showRecipeView(post: post, user: viewModel.user)
+                    showRecipeView(post: post, user: viewModel.user, curCheck: currentCheck)
                 })
             } else {
                 NotingView(text: "お気に入り登録していません")
@@ -50,5 +54,5 @@ struct FavoriteGridView: View {
 }
 
 #Preview {
-    FavoriteGridView(user: User.MOCK_USERS[0])
+    FavoriteGridView(user: User.MOCK_USERS[0], currentCheck: true)
 }

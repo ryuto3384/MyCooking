@@ -46,6 +46,7 @@ struct EditProfileView: View {
                             .fontWeight(.bold)
                     }
                 }
+                .padding(.top, 15)
                 .padding(.horizontal)
                 
                 Divider()

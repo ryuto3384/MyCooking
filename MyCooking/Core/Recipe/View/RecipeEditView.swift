@@ -1,14 +1,19 @@
 //
-//  UploadView.swift
+//  RecipeEditView.swift
 //  MyCooking
 //
-//  Created by 中島瑠斗 on 2024/01/04.
+//  Created by 中島瑠斗 on 2024/01/27.
 //
 
 import SwiftUI
 import PhotosUI
+import Kingfisher
 
-struct UploadView: View {
+struct RecipeEditView: View {
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    @ObservedObject var viewModel: ShowRecipeViewModel
     
     @State private var introduction = ""
     @State private var imagePickerPresented = false
@@ -21,64 +26,54 @@ struct UploadView: View {
     @State private var ingredientsValues: [String] = [""]
     @State private var ingredientsAmount: [String] = [""]
     
-    
-    @StateObject var viewModel = UploadViewModel()
-    
-    @Binding var tabIndex: Int
-    let user: User
-    
     @State private var showAlert = false
     
     @State private var selectedCategory = [String]()
     
+    @State private var imageURL = ""
+    
+    init(viewModel: ShowRecipeViewModel) {
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
+        
         VStack {
-            //ツールバー
-            HStack {
-                Button {
-                    clearPostDateAndReturnToFeed()
-                } label: {
-                    Text("閉じる")
-                    
-                }
-                
-                Spacer()
-                Text("レシピを投稿")
-                    .fontWeight(.semibold)
-                Spacer()
-                
-                Button {
-                    //print(selectedCategory)
-                    
-                    if viewModel.postImage != nil {
-                        if title.isEmpty || methodValues.allSatisfy({ $0.isEmpty }) || ingredientsValues.allSatisfy({ $0.isEmpty }) || ingredientsAmount.allSatisfy({ $0.isEmpty }) || introduction.isEmpty {
-                            
-                            showAlert = true
-                        } else {
-                            Task {
-                                try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory)
-                                clearPostDateAndReturnToFeed()
-                                
-                                try await viewModel.updateCount(user: user)
-                            }
-                            
-                        }
-                    } else {
-                        showAlert = true
+            //toolbar
+            VStack {
+                HStack {
+                    Button("閉じる") {
+                        dismiss()
                     }
+                     
+                    Spacer()
                     
-                } label: {
-                    Text("投稿")
+                    Text("レシピ編集")
+                        .font(.subheadline)
                         .fontWeight(.semibold)
+                    
+                    Spacer()
+                    
+                    Button {
+                        Task {
+                            try await /*viewModel.updateUserData()*/
+                            dismiss()
+                        }
+                        
+                    } label: {
+                        Text("完了")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                    }
                 }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("入力エラー"), message: Text("全ての項目を入力してください"), dismissButton: .default(Text("OK")))
-                }
+                .padding(.top, 15)
+                .padding(.bottom)
+                .padding(.horizontal)
+                
+                //Divider()
             }
-            .padding(.top, 15)
-            .padding(.horizontal)
             
-            
+            //レシピ
             ScrollView {
                 VStack{
                     //画像配置
@@ -99,7 +94,7 @@ struct UploadView: View {
                         Button {
                             imagePickerPresented.toggle()
                         }label: {
-                            Image(.noimage)
+                            KFImage(URL(string: imageURL))
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 300, height: 300)
@@ -179,26 +174,25 @@ struct UploadView: View {
                 
                 
             }
-            
+        }
+        .onAppear{
+            loadDataFromViewModel()
         }
         .photosPicker(isPresented: $imagePickerPresented, selection: $viewModel.selectedImage)
     }
     
-    func clearPostDateAndReturnToFeed() {
-        introduction = ""
-        title = ""
-        ingredientsPeople = ""
-        methodValues = [""]
-        ingredientsValues = [""]
-        ingredientsAmount = [""]
-        viewModel.postImage = nil
-        viewModel.selectedImage = nil
-        selectedCategory = []
-        tabIndex = 2
+    private func loadDataFromViewModel(){
+        self.imageURL = viewModel.post.imageUrl
+        self.introduction = viewModel.post.introduction
+        self.title = viewModel.post.title
+        self.methodValues = viewModel.post.methodValues
+        self.ingredientsPeople = viewModel.post.ingredientsPeople
+        self.ingredientsValues = viewModel.post.ingredientsValues
+        self.ingredientsAmount = viewModel.post.ingredientsAmount
+        self.selectedCategory = viewModel.post.category
     }
-    
 }
 
 #Preview {
-    UploadView(tabIndex: .constant(0), user: User.MOCK_USERS[0])
+    RecipeEditView(viewModel: ShowRecipeViewModel(post: Post.MOCK_POSTS[1], user: User.MOCK_USERS[0]))
 }

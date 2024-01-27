@@ -36,10 +36,10 @@ struct CurrentUserProfileView: View {
                 .padding(.horizontal, 1)
                 
                 if gridOption == GridOption.myPost {
-                    PostGridView(user: viewModel.user, posts: viewModel.posts)
+                    PostGridView(user: viewModel.user, posts: viewModel.posts, currentCheck: true)
                         
                 } else {
-                    FavoriteGridView(user: viewModel.user)
+                    FavoriteGridView(user: viewModel.user, currentCheck: false)
                 }
                 
             }

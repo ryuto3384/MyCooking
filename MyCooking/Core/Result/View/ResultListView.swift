@@ -18,7 +18,7 @@ struct ResultListView: View {
         List {
             if category == "" {
                 ForEach(posts) { post in
-                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0])){
+                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0], curCheck: false)){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
                     }
@@ -30,7 +30,7 @@ struct ResultListView: View {
                 }
                 
                 ForEach(filterPosts) { post in
-                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0])){
+                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0], curCheck: false)){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
                     }
@@ -39,7 +39,8 @@ struct ResultListView: View {
             
             
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
+        //.navigationBarHidden(true)
         .listStyle(.inset)
     }
 }

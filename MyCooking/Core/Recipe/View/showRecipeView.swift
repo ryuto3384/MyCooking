@@ -13,12 +13,19 @@ struct showRecipeView: View {
     
     @StateObject var viewModel: ShowRecipeViewModel
     
-    init(post: Post, user: User) {
+    let curCheck: Bool
+    
+    init(post: Post, user: User, curCheck: Bool) {
         self._viewModel = StateObject(wrappedValue: ShowRecipeViewModel(post: post, user: user))
+        self.curCheck = curCheck
     }
+    @State private var showEditSeet = false
 
     var body: some View {
         VStack {
+            if curCheck {
+                RecipeHeaderView(postTitle: "Test", showEditSheet: $showEditSeet)
+            }
             ScrollView {
                 VStack{
                     //画像配置
@@ -30,7 +37,7 @@ struct showRecipeView: View {
                             .clipped()
                     } else {
                         //ここはあとからnoImageの画像に変える
-                        Image(.syumagi1)
+                        Image(.noimage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 300, height: 300)
@@ -106,7 +113,12 @@ struct showRecipeView: View {
                     }
                 }
             }
+            .toolbar(curCheck ? .hidden : .visible, for: .navigationBar)
+            //.navigationBarHidden(curCheck ? true : false)
             
+        }
+        .fullScreenCover(isPresented: $showEditSeet) {
+            RecipeEditView(viewModel: viewModel)
         }
     }
     
@@ -119,5 +131,5 @@ struct showRecipeView: View {
 
 
 #Preview {
-    showRecipeView(post: Post.MOCK_POSTS[0], user: User.MOCK_USERS[0])
+    showRecipeView(post: Post.MOCK_POSTS[0], user: User.MOCK_USERS[0],curCheck: true)
 }
