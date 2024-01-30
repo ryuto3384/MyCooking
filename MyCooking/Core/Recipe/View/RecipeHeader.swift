@@ -16,7 +16,8 @@ struct RecipeHeaderView: View {
     @Binding var showEditSheet: Bool
     @State private var showMenu = false
     
-    @ObservedObject var viewModel: ShowRecipeViewModel
+    @ObservedObject var recipeModel: ShowRecipeViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
         VStack{
@@ -52,8 +53,8 @@ struct RecipeHeaderView: View {
                     
                     Button(role: .destructive) {
                         Task {
-                            try await viewModel.deleteRecipe()
-                            try await viewModel.updateCount(user: viewModel.user)
+                            try await recipeModel.deleteRecipe()
+                            try await viewModel.fetchAllPosts()
                         }
                         dismiss()
                     } label: {
@@ -76,5 +77,5 @@ struct RecipeHeaderView: View {
 }
 
 #Preview {
-    showRecipeView(post: Post.MOCK_POSTS[0], user: User.MOCK_USERS[0], curCheck: true)
+    showRecipeView(post: Post.MOCK_POSTS[0], curUser: User.MOCK_USERS[0])
 }

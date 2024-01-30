@@ -18,7 +18,6 @@ struct ItemSearchView: View {
     @Environment(\.dismiss) var dismiss
     
     let category: String
-    let posts: [Post]
     
     var body: some View {
         VStack{
@@ -48,12 +47,12 @@ struct ItemSearchView: View {
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
             
-            ResultListView(posts: posts, category: category)
+            ResultListView(category: category)
             Spacer()
         }
     }
 }
 
 #Preview {
-    ItemSearchView(category: "朝食", posts: Post.MOCK_POSTS)
+    ItemSearchView(category: "朝食")
 }

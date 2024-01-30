@@ -42,7 +42,7 @@ struct PostGridView: View {
                         }
                     }
                 }.navigationDestination(for: Post.self, destination: { post in
-                    showRecipeView(post: post, user: viewModel.user, curCheck: currentCheck)
+                    showRecipeView(post: post, curUser: viewModel.user, currentCheck)
                 })
             }else {
                 NotingView(text: "投稿していません")

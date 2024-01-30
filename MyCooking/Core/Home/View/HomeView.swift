@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject var viewModel: MainTabViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     @State private var isPresented = false
     @State private var isShowCategory = false
@@ -156,5 +156,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(viewModel: MainTabViewModel())
+    HomeView()
 }

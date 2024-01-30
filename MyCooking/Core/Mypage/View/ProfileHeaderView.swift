@@ -8,41 +8,37 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-    @StateObject var viewModel: ProfileHeaderViewModel
-    
-    init(user: User) {
-        self._viewModel = StateObject(wrappedValue: ProfileHeaderViewModel(user: user))
-    }
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     @State private var showEdhitProfile = false
     
     var body: some View {
         VStack(spacing: 10) {
             HStack{
-                CircularProfileImageView(user: viewModel.user, size: .large)
+                CircularProfileImageView(user: viewModel.curUser, size: .large)
                 
                 Spacer()
                 
                 HStack(spacing: 8){
-                    UserStatView(value: viewModel.user.postCount, title: "投稿")
-                    UserStatView(value: viewModel.user.followers.count, title: "フォロワー")
-                    UserStatView(value: viewModel.user.follow.count, title: "フォロー中")
+                    UserStatView(value: viewModel.curUser.postCount, title: "投稿")
+                    UserStatView(value: viewModel.curUser.followers.count, title: "フォロワー")
+                    UserStatView(value: viewModel.curUser.follow.count, title: "フォロー中")
                 }
             }
             .padding(.horizontal)
             
             //アカウント名
             VStack(alignment: .leading, spacing: 4){
-                if let fullname = viewModel.user.fullname {
+                if let fullname = viewModel.curUser.fullname {
                     Text(fullname)
                         .font(.footnote)
                         .fontWeight(.semibold)
                 } else {
-                    Text(viewModel.user.username)
+                    Text(viewModel.curUser.username)
                 }
                 
                 
-                if let bio = viewModel.user.bio {
+                if let bio = viewModel.curUser.bio {
                     Text(bio)
                         .font(.footnote)
                 }
@@ -53,7 +49,7 @@ struct ProfileHeaderView: View {
             .padding(.horizontal)
             
             Button {
-                if viewModel.user.isCurrentUser {
+                if viewModel.curUser.isCurrentUser {
                     //editの編集画面へ
                     showEdhitProfile.toggle()
                 } else {
@@ -69,15 +65,15 @@ struct ProfileHeaderView: View {
                 }
             } label: {
                 
-                Text(viewModel.user.isCurrentUser ? "プロフィールを編集" : viewModel.checkFollow() ? "フォロー中" : "フォロー")
+                Text(viewModel.curUser.isCurrentUser ? "プロフィールを編集" : viewModel.checkFollow() ? "フォロー中" : "フォロー")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360, height: 32)
-                    .background(viewModel.user.isCurrentUser ? .white : viewModel.checkFollow() ? Color(.systemGray5) : Color(.systemBlue))
-                    .foregroundStyle(viewModel.user.isCurrentUser ? .black : viewModel.checkFollow() ? .black : .white)
+                    .background(viewModel.curUser.isCurrentUser ? .white : viewModel.checkFollow() ? Color(.systemGray5) : Color(.systemBlue))
+                    .foregroundStyle(viewModel.curUser.isCurrentUser ? .black : viewModel.checkFollow() ? .black : .white)
                     .cornerRadius(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 6).stroke(viewModel.user.isCurrentUser ? .gray : .clear, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 6).stroke(viewModel.curUser.isCurrentUser ? .gray : .clear, lineWidth: 1)
                     )
                 
             }
@@ -86,14 +82,11 @@ struct ProfileHeaderView: View {
             //Divider()
         }
         .fullScreenCover(isPresented: $showEdhitProfile) {
-            EditProfileView(user: viewModel.user)
-        }
-        .onAppear{
-            Task { try await viewModel.loadUser() }
+            EditProfileView()
         }
     }
 }
 
 #Preview {
-    ProfileHeaderView(user: User.MOCK_USERS[0])
+    ProfileHeaderView()
 }

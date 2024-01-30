@@ -21,14 +21,10 @@ struct UploadView: View {
     @State private var ingredientsValues: [String] = [""]
     @State private var ingredientsAmount: [String] = [""]
     
-    
-    @StateObject var viewModel = UploadViewModel()
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     @Binding var tabIndex: Int
-    let user: User
-    
     @State private var showAlert = false
-    
     @State private var selectedCategory = [String]()
     
     var body: some View {
@@ -59,7 +55,7 @@ struct UploadView: View {
                                 try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory)
                                 clearPostDateAndReturnToFeed()
                                 
-                                try await viewModel.updateCount(user: user)
+                                try await viewModel.updateCount(user: viewModel.curUser)
                             }
                             
                         }
@@ -200,5 +196,5 @@ struct UploadView: View {
 }
 
 #Preview {
-    UploadView(tabIndex: .constant(0), user: User.MOCK_USERS[0])
+    UploadView(tabIndex: .constant(0))
 }

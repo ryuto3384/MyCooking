@@ -11,7 +11,9 @@ import Firebase
 
 class ShowRecipeViewModel: ObservableObject{
     @Published var post: Post
-    @Published var user: User
+    @Published var curUser: User
+
+    //各値
     @Published var favorite = [String]()
     @Published var imageURL = ""
     @Published var introduction = ""
@@ -21,17 +23,16 @@ class ShowRecipeViewModel: ObservableObject{
     @Published var ingredientsValues:[String] = []
     @Published var ingredientsAmount:[String] = []
     @Published var selectedCategory:[String] = []
+    
     @Published var showProgressFlag = false
     
-    init(post: Post, user: User) {
+    init(post: Post, curUser: User) {
         
         self.post = post
         
-        self.user = user
+        self.curUser = curUser
         
-        if user.favoriteList != [] {
-            favorite = user.favoriteList
-        }
+        self.favorite = curUser.favoriteList
         self.introduction = post.introduction
         self.title = post.title
         self.methodValues = post.methodValues
@@ -59,8 +60,9 @@ class ShowRecipeViewModel: ObservableObject{
         
     }
     
+    //お気に入りボタン
     @MainActor
-    func updateUserData(postId: String) async throws {
+    func updateUserData(postId: String = "" ) async throws {
         
         var data = [String: Any]()
         
@@ -75,7 +77,7 @@ class ShowRecipeViewModel: ObservableObject{
         
         
         if !data.isEmpty {
-            try await Firestore.firestore().collection("users").document(user.id).updateData(data)
+            try await Firestore.firestore().collection("users").document(curUser.id).updateData(data)
         }
     }
     
@@ -127,14 +129,4 @@ class ShowRecipeViewModel: ObservableObject{
         try await PostService.deletePost(id: post.id)
     }
     
-    func updateCount(user: User) async throws {
-        var data = [String: Any]()
-        
-        var count = user.postCount
-        count -= 1
-        
-        data["postCount"] = count
-        
-        try await Firestore.firestore().collection("users").document(user.id).updateData(data)
-    }
 }

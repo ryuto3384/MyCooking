@@ -50,5 +50,5 @@ struct ResultCellView: View {
 }
 
 #Preview {
-    ResultListView(posts: Post.MOCK_POSTS, category: "")
+    ResultListView(category: "")
 }

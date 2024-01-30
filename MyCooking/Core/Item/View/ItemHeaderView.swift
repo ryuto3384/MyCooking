@@ -13,8 +13,6 @@ struct ItemHeaderView: View {
     
     let categories:[String]  = RecipeCategory.allCases.map{ $0.rawValue }
     
-    let posts: [Post]
-    
     var body: some View {
         let gradient: LinearGradient = LinearGradient(
             gradient: Gradient(colors: [Color("Gradient3-2"), Color("Gradient3-3")]), startPoint:.topLeading, endPoint: .bottomTrailing)
@@ -24,7 +22,7 @@ struct ItemHeaderView: View {
         VStack {
             LazyVGrid(columns: gridItem, spacing: 5){
                 ForEach(shuffledCategory, id: \.self) { category in
-                    NavigationLink(destination: ItemSearchView(category: category, posts: posts)){
+                    NavigationLink(destination: ItemSearchView(category: category)){
                         Text(category)
                             .frame(maxWidth: 200, minHeight: 75)
                             .background(gradient)
@@ -48,5 +46,5 @@ struct ItemHeaderView: View {
 }
 
 #Preview {
-    ItemView(viewModel: MainTabViewModel())
+    ItemView()
 }

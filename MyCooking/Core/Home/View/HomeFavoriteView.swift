@@ -19,8 +19,8 @@ struct HomeFavoriteView: View {
             }label: {
                 Text("閉じる")
             }
-            if let favoriteFoods = viewModel.favorite{
-                ResultListView(posts: favoriteFoods, category: "")
+            if viewModel.favorite != nil{
+                ResultListView(category: "")
             }
         }
             

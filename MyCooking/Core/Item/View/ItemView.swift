@@ -14,10 +14,10 @@ struct ItemView: View {
     
     let categories:[String] = RecipeCategory.allCases.map{ $0.rawValue }
     
-    @ObservedObject var viewModel: MainTabViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
-        
+        //グラデーション
         let gradient: LinearGradient = LinearGradient(
             gradient: Gradient(colors: [Color("MainGradient1-1"), Color("MainGradient1-2")]), startPoint:.top, endPoint: .bottom)
         
@@ -29,7 +29,7 @@ struct ItemView: View {
                 ScrollView{
                     LazyVStack{
                         
-                        SearchBar(text: $searchText, viewModel: viewModel)
+                        SearchBar(text: $searchText)
                         
                         
                         
@@ -42,12 +42,12 @@ struct ItemView: View {
                                 .padding(.horizontal)
                             
                             
-                            ItemHeaderView(posts: viewModel.posts)
+                            ItemHeaderView()
                                 .frame(maxWidth: .infinity)
                                 .padding(.horizontal)
                         }
                         ForEach(categories, id: \.self) { category in
-                            ItemScrollView(category: category, posts: viewModel.posts)
+                            ItemScrollView(category: category)
                                 .padding(.horizontal)
                         }
                     }
@@ -85,5 +85,5 @@ struct ItemView: View {
 }
 
 #Preview {
-    ItemView(viewModel: MainTabViewModel())
+    ItemView()
 }

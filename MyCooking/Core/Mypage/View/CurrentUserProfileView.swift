@@ -14,18 +14,14 @@ enum GridOption: String, CaseIterable {
 
 struct CurrentUserProfileView: View {
 
-    @StateObject var viewModel: ProfileViewModel
-    
-    init(user: User) {
-        self._viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
-    }
-    
+    @EnvironmentObject var viewModel: MainTabViewModel
+
     @State private var gridOption = GridOption.myPost
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                ProfileHeaderView(user: viewModel.user)
+                ProfileHeaderView()
                 
                 Picker("検索オプション", selection: $gridOption){
                     ForEach(GridOption.allCases, id: \.self) { option in
@@ -36,10 +32,10 @@ struct CurrentUserProfileView: View {
                 .padding(.horizontal, 1)
                 
                 if gridOption == GridOption.myPost {
-                    PostGridView(user: viewModel.user, posts: viewModel.posts, currentCheck: true)
+                    PostGridView(user: viewModel.curUser, posts: viewModel.allPosts, currentCheck: true)
                         
                 } else {
-                    FavoriteGridView(user: viewModel.user, currentCheck: false)
+                    FavoriteGridView(user: viewModel.curUser, currentCheck: false)
                 }
                 
             }
@@ -75,5 +71,5 @@ struct NotingView: View {
 }
 
 #Preview {
-    CurrentUserProfileView(user: User.MOCK_USERS[0])
+    CurrentUserProfileView()
 }

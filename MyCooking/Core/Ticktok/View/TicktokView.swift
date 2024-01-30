@@ -10,14 +10,14 @@ import SwiftUI
 struct SearchView: View {
     
     @State private var searchText = ""
-    @StateObject var viewModel = SearchViewModel()
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
         NavigationStack {
-            ScrollView{
+            ScrollView {
                 LazyVStack(spacing: 12) {
                     if searchText == "" {
-                        ForEach(viewModel.users){ user in
+                        ForEach(viewModel.allUsers){ user in
                             
                             NavigationLink(value: user) {
                                 HStack{
@@ -45,7 +45,7 @@ struct SearchView: View {
                             
                         }
                     } else {
-                        ForEach(viewModel.users.filter{ user in
+                        ForEach(viewModel.allUsers.filter{ user in
                             return user.username.lowercased().contains(searchText.lowercased())
                         }) { user in
                             

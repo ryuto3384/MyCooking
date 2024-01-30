@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ResultTextListView: View {
     
+    @EnvironmentObject var viewModel: MainTabViewModel
+    
     let posts: [Post]
     let searchText: String
     
@@ -25,7 +27,7 @@ struct ResultTextListView: View {
             
             
             ForEach(filterPosts) { post in
-                NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0], curCheck: false)){
+                NavigationLink(destination: showRecipeView(post: post, curUser: viewModel.curUser)){
                     ResultCellView(post: post)
                         .frame(width: widthSize, height: 130)
                 }

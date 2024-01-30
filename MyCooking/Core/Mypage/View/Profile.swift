@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
+    let user: User
 
-    @StateObject var viewModel: ProfileViewModel
-    
-    init(user: User) {
-        self._viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
-    }
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
         
@@ -21,18 +18,15 @@ struct ProfileView: View {
         
         ScrollView {
             
-            ProfileHeaderView(user: viewModel.user)
+            ProfileHeaderView()
             
             Divider()
             
             //grid
-            PostGridView(user: viewModel.user, posts: viewModel.posts, currentCheck: false)
+            PostGridView(user: viewModel.curUser, posts: viewModel.allPosts, currentCheck: false)
         }
         .navigationTitle("MyPage")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear{
-            
-        }
         
         
         

@@ -11,12 +11,14 @@ import Kingfisher
 
 struct showRecipeView: View {
     
-    @StateObject var viewModel: ShowRecipeViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
+    //レシピ用のインスタンス
+    @StateObject var recipeModel: ShowRecipeViewModel
     
-    let curCheck: Bool
+    let curCheck: Bool 
     
-    init(post: Post, user: User, curCheck: Bool) {
-        self._viewModel = StateObject(wrappedValue: ShowRecipeViewModel(post: post, user: user))
+    init(post: Post, curUser: User, _ curCheck: Bool = false) {
+        self._recipeModel = StateObject(wrappedValue: ShowRecipeViewModel(post: post, curUser: curUser))
         self.curCheck = curCheck
     }
     @State private var showEditSeet = false
@@ -24,13 +26,13 @@ struct showRecipeView: View {
     var body: some View {
         VStack {
             if curCheck {
-                RecipeHeaderView(postTitle: "Test", showEditSheet: $showEditSeet, viewModel: viewModel)
+                RecipeHeaderView(postTitle: "Test", showEditSheet: $showEditSeet, recipeModel: recipeModel)
             }
             ScrollView {
                 VStack{
                     //画像配置
-                    if viewModel.post.imageUrl != "" {
-                        KFImage(URL(string: viewModel.post.imageUrl))
+                    if recipeModel.post.imageUrl != "" {
+                        KFImage(URL(string: recipeModel.post.imageUrl))
                             .resizable()
                             .scaledToFill()
                             .frame(width: 300, height: 300)
@@ -45,11 +47,14 @@ struct showRecipeView: View {
                         //画像に白いフィルターを付ける
                     }
                     HStack{
-                        Text(viewModel.post.title)
+                        Text(recipeModel.post.title)
                         Spacer()
                         Button("お気に入り"){
                             print("お気に入り登録！")
-                            Task { try await viewModel.updateUserData(postId: viewModel.post.id) }
+                            Task {
+                                try await recipeModel.updateUserData(postId: recipeModel.post.id)
+                                try await viewModel.fetchCurUser()
+                            }
                         }
                     }
                     .padding(.top, 20)
@@ -57,13 +62,22 @@ struct showRecipeView: View {
                     
                     Divider()
                     
+                    
                     HStack{
-                        CircularProfileImageView(user: viewModel.user, size: .xSmall)
+                        if let postUser = recipeModel.post.user {
+                            CircularProfileImageView(user: postUser, size: .xSmall)
+                            
+                        } else {
+                            CircularProfileImageView(user: User.MOCK_USERS[0], size: .xSmall)
+                        }
+                        
                         Spacer()
+                        
                     }
                     .padding(.horizontal, 10)
+                   
                     
-                    Text(viewModel.post.introduction)
+                    Text(recipeModel.post.introduction)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 10)
                     
@@ -74,13 +88,13 @@ struct showRecipeView: View {
                             .font(.title2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text(viewModel.post.ingredientsPeople)
+                        Text(recipeModel.post.ingredientsPeople)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        ForEach(0..<viewModel.post.ingredientsValues.count, id: \.self) { index in
+                        ForEach(0..<recipeModel.post.ingredientsValues.count, id: \.self) { index in
                             HStack{
-                                Text(viewModel.post.ingredientsValues[index])
+                                Text(recipeModel.post.ingredientsValues[index])
                                 Spacer()
-                                Text(viewModel.post.ingredientsAmount[index])
+                                Text(recipeModel.post.ingredientsAmount[index])
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             Divider()
@@ -93,12 +107,12 @@ struct showRecipeView: View {
                             .font(.title2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        ForEach(0..<viewModel.post.methodValues.count, id: \.self) { index in
+                        ForEach(0..<recipeModel.post.methodValues.count, id: \.self) { index in
                             VStack{
                                 HStack{
                                     Text("\(index + 1)")
                                         .frame(width: 20, height: 20)
-                                    Text(viewModel.post.methodValues[index])
+                                    Text(recipeModel.post.methodValues[index])
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 Divider()
@@ -109,7 +123,7 @@ struct showRecipeView: View {
                     .padding(10)
                     
                     VStack{
-                        Text("公開日:\(formatDate(viewModel.post.timestamp.dateValue()))")
+                        Text("公開日:\(formatDate(recipeModel.post.timestamp.dateValue()))")
                     }
                 }
             }
@@ -118,7 +132,7 @@ struct showRecipeView: View {
             
         }
         .fullScreenCover(isPresented: $showEditSeet) {
-            RecipeEditView(viewModel: viewModel)
+            RecipeEditView(recipeModel: recipeModel)
         }
     }
     
@@ -131,5 +145,5 @@ struct showRecipeView: View {
 
 
 #Preview {
-    showRecipeView(post: Post.MOCK_POSTS[0], user: User.MOCK_USERS[0],curCheck: true)
+    showRecipeView(post: Post.MOCK_POSTS[0], curUser: User.MOCK_USERS[0])
 }

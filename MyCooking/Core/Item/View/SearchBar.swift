@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchBar: View {
     
     @Binding var text: String
-    @ObservedObject var viewModel: MainTabViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
         VStack {
@@ -37,7 +37,7 @@ struct SearchBar: View {
                     
                     
                     NavigationLink{
-                        ItemSearchTextView(searchText: text, posts: viewModel.posts)
+                        ItemSearchTextView(searchText: text, posts: viewModel.allPosts)
                     } label: {
                         Text("検索")
                             .frame(width: 40, height: 36)

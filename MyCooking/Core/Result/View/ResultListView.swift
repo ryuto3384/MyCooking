@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultListView: View {
     
-    let posts: [Post]
+    @EnvironmentObject var viewModel: MainTabViewModel
     let category: String
     
     private let widthSize: CGFloat = UIScreen.main.bounds.width - 1
@@ -17,20 +17,20 @@ struct ResultListView: View {
     var body: some View {
         List {
             if category == "" {
-                ForEach(posts) { post in
-                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0], curCheck: false)){
+                ForEach(viewModel.allPosts) { post in
+                    NavigationLink(destination: showRecipeView(post: post, curUser: viewModel.curUser)){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
                     }
                 }
             } else {
                 
-                let filterPosts = posts.filter { post in
+                let filterPosts = viewModel.allPosts.filter { post in
                     return post.category.contains(category)
                 }
                 
                 ForEach(filterPosts) { post in
-                    NavigationLink(destination: showRecipeView(post: post, user: post.user ?? User.MOCK_USERS[0], curCheck: false)){
+                    NavigationLink(destination: showRecipeView(post: post, curUser: viewModel.curUser)){
                         ResultCellView(post: post)
                             .frame(width: widthSize, height: 130)
                     }
@@ -46,5 +46,5 @@ struct ResultListView: View {
 }
 
 #Preview {
-    ResultListView(posts: Post.MOCK_POSTS, category: "")
+    ResultListView(category: "")
 }

@@ -11,11 +11,7 @@ import PhotosUI
 struct EditProfileView: View {
     
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: EditProfileViewModel
-    
-    init(user: User) {
-        self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user: user))
-    }
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
         VStack {
@@ -63,7 +59,7 @@ struct EditProfileView: View {
                             .background(.gray)
                             .clipShape(Circle())
                     } else {
-                        CircularProfileImageView(user: viewModel.user, size: .large)
+                        CircularProfileImageView(user: viewModel.curUser, size: .large)
                     }
                     
                     Text("Edit profile picture")
@@ -110,5 +106,5 @@ struct EditProfileRowView: View {
 }
 
 #Preview {
-    EditProfileView(user: User.MOCK_USERS[0])
+    EditProfileView()
 }

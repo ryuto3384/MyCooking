@@ -29,10 +29,7 @@ class FavoriteGridViewModel: ObservableObject {
         
         self.posts = try await PostService.fetchUserFavoritePosts(id: self.user.favoriteList)
         
-        for i in 0 ..< posts.count {
-            posts[i].user = self.user
-        }
-        
+
         fetchTime = false
         
     }

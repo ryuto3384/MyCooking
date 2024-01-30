@@ -11,7 +11,7 @@ import Kingfisher
 struct ItemScrollView: View {
     
     let category: String
-    let posts: [Post]
+    @EnvironmentObject var viewModel: MainTabViewModel
     
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 4) - 1
     private let imageHeight: CGFloat = (UIScreen.main.bounds.width / 2.5) - 1
@@ -19,7 +19,7 @@ struct ItemScrollView: View {
     var body: some View {
         
         //検索したcategoryを表示する
-        let filterPosts = posts.filter { post in
+        let filterPosts = viewModel.allPosts.filter { post in
             return post.category.contains(category)
         }
         
@@ -36,8 +36,9 @@ struct ItemScrollView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 10) {
                         ForEach(filterPosts){ post in
+                            
                             if let user = post.user {
-                                NavigationLink(destination: showRecipeView(post: post, user: user, curCheck: false)){
+                                NavigationLink(destination: showRecipeView(post: post, curUser: user)){
                                     VStack{
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
@@ -58,7 +59,7 @@ struct ItemScrollView: View {
                                     .frame(width: imageDimension, height: imageHeight)
                                 }
                                 
-                            }
+                            } 
                             
                             
                             
@@ -76,6 +77,6 @@ struct ItemScrollView: View {
 }
 
 #Preview {
-    ItemView(viewModel: MainTabViewModel())
+    ItemView()
 }
 

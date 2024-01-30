@@ -13,7 +13,8 @@ struct RecipeEditView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @ObservedObject var viewModel: ShowRecipeViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
+    @ObservedObject var recipeModel: ShowRecipeViewModel
     
     @State private var imagePickerPresented = false
     @State private var photoItem: PhotosPickerItem?
@@ -21,10 +22,7 @@ struct RecipeEditView: View {
     @State private var showAlert = false
     
     @State private var selectedCategory = [String]()
-    
-    init(viewModel: ShowRecipeViewModel) {
-        self.viewModel = viewModel
-    }
+
     
     var body: some View {
         
@@ -46,7 +44,8 @@ struct RecipeEditView: View {
                     
                     Button {
                         Task {
-                            try await viewModel.updateRecipe()
+                            try await recipeModel.updateRecipe()
+                            try await viewModel.fetchAllPosts()
                         }
                         dismiss()
                         
@@ -67,7 +66,7 @@ struct RecipeEditView: View {
             ScrollView {
                 VStack{
                     //画像配置
-                    if let image = viewModel.postImage {
+                    if let image = recipeModel.postImage {
                         Button {
                             imagePickerPresented.toggle()
                         }label: {
@@ -83,7 +82,7 @@ struct RecipeEditView: View {
                         Button {
                             imagePickerPresented.toggle()
                         }label: {
-                            KFImage(URL(string: viewModel.imageURL))
+                            KFImage(URL(string: recipeModel.imageURL))
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 300, height: 300)
@@ -95,7 +94,7 @@ struct RecipeEditView: View {
                     }
                     //区切り線
                     Divider()
-                    TextField("タイトル", text: $viewModel.title)
+                    TextField("タイトル", text: $recipeModel.title)
                         .padding(.top, 20)
                         .padding(.horizontal, 10)
                     Divider()
@@ -104,12 +103,12 @@ struct RecipeEditView: View {
                         Text("作り方")
                             .font(.title2)
                         
-                        ForEach(0..<viewModel.methodValues.count, id: \.self) { index in
+                        ForEach(0..<recipeModel.methodValues.count, id: \.self) { index in
                             VStack{
                                 HStack{
                                     Text("\(index + 1)")
                                         .frame(width: 20, height: 20)
-                                    TextField("野菜を切る", text: $viewModel.methodValues[index], axis: .vertical)
+                                    TextField("野菜を切る", text: $recipeModel.methodValues[index], axis: .vertical)
                                 }
                                 Divider()
                             }
@@ -120,7 +119,7 @@ struct RecipeEditView: View {
                             Text("+")
                                 .font(.title)
                             Button("作り方を追加"){
-                                viewModel.methodValues.append("")
+                                recipeModel.methodValues.append("")
                             }
                             
                         }
@@ -133,11 +132,11 @@ struct RecipeEditView: View {
                         Text("材料")
                             .font(.title2)
                         
-                        TextField("2人分", text: $viewModel.ingredientsPeople)
-                        ForEach(0..<viewModel.ingredientsValues.count, id: \.self) { index in
+                        TextField("2人分", text: $recipeModel.ingredientsPeople)
+                        ForEach(0..<recipeModel.ingredientsValues.count, id: \.self) { index in
                             HStack{
-                                TextField("食材",text: $viewModel.ingredientsValues[index])
-                                TextField("〇g", text: $viewModel.ingredientsAmount[index])
+                                TextField("食材",text: $recipeModel.ingredientsValues[index])
+                                TextField("〇g", text: $recipeModel.ingredientsAmount[index])
                             }
                         }
                         
@@ -145,18 +144,18 @@ struct RecipeEditView: View {
                             Text("+")
                                 .font(.title)
                             Button("食材を追加"){
-                                viewModel.ingredientsValues.append("")
-                                viewModel.ingredientsAmount.append("")
+                                recipeModel.ingredientsValues.append("")
+                                recipeModel.ingredientsAmount.append("")
                             }
                             
                         }
                     }
                     .padding(10)
                     
-                    TextField("レシピの紹介文", text: $viewModel.introduction, axis: .vertical)
+                    TextField("レシピの紹介文", text: $recipeModel.introduction, axis: .vertical)
                         .padding(10)
                     
-                    UploadHashView(selectedTags: $viewModel.selectedCategory)
+                    UploadHashView(selectedTags: $recipeModel.selectedCategory)
                     
                     
                 }
@@ -164,7 +163,7 @@ struct RecipeEditView: View {
                 
             }
         }
-        .photosPicker(isPresented: $imagePickerPresented, selection: $viewModel.selectedImage)
+        .photosPicker(isPresented: $imagePickerPresented, selection: $recipeModel.selectedImage)
         
         
     }
@@ -173,5 +172,5 @@ struct RecipeEditView: View {
 }
 
 #Preview {
-    RecipeEditView(viewModel: ShowRecipeViewModel(post: Post.MOCK_POSTS[1], user: User.MOCK_USERS[0]))
+    RecipeEditView(recipeModel: ShowRecipeViewModel(post: Post.MOCK_POSTS[0], curUser: User.MOCK_USERS[0]))
 }
