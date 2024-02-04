@@ -14,15 +14,25 @@ struct HomeFavoriteView: View {
 
     var body: some View {
         VStack{
-            Button{
-                dismiss()
-            }label: {
-                Text("閉じる")
+            HStack{
+                Button{
+                    dismiss()
+                }label: {
+                    Image(systemName: "x.circle")
+                        .font(.system(size: 30))
+                        .foregroundStyle(.black)
+                }
+                Spacer()
             }
+            
             if viewModel.favorite != nil{
                 ResultListView(category: "")
+            } else {
+                Text("いいねしたレシピがありません")
             }
         }
+        .frame(maxHeight: .infinity, alignment: .top)
+        .padding()
             
     }
 }

@@ -21,7 +21,7 @@ struct CurrentUserProfileView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ProfileHeaderView()
+                ProfileHeaderView(user: viewModel.curUser)
                 
                 Picker("検索オプション", selection: $gridOption){
                     ForEach(GridOption.allCases, id: \.self) { option in

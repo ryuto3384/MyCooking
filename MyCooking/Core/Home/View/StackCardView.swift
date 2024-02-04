@@ -66,9 +66,9 @@ struct StackCardView: View {
                             endSwipeAction(rightSwipe: translation > 0)
                             
                             if translation > 0{
-                                print("right")
+                                //print("right")
                             } else {
-                                print("left")
+                                //print("left")
                             }
                         }
                         else {
@@ -94,9 +94,9 @@ struct StackCardView: View {
                     endSwipeAction(rightSwipe: rightSwipe)
                     
                     if rightSwipe{
-                        print("right")
+                        //print("right")
                     } else {
-                        print("left")
+                        //print("left")
                     }
                 }
             }

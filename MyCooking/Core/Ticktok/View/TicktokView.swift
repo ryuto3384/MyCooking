@@ -17,7 +17,7 @@ struct SearchView: View {
             ScrollView {
                 LazyVStack(spacing: 12) {
                     if searchText == "" {
-                        ForEach(viewModel.allUsers){ user in
+                        ForEach(viewModel.allUsers.filter( {$0.id != viewModel.curUser.id} )){ user in
                             
                             NavigationLink(value: user) {
                                 HStack{

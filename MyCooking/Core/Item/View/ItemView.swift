@@ -62,7 +62,7 @@ struct ItemView: View {
                 .refreshable{
                     do {
                         Task {
-                            try await viewModel.fetchPosts()
+                            try await viewModel.fetchAllPosts()
                         }
                     }
                 }

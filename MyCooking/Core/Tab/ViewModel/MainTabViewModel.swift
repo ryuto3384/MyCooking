@@ -17,24 +17,39 @@ class MainTabViewModel: ObservableObject {
     @Published var allPosts = [Post]()
     //すべてuser
     @Published var allUsers = [User]()
-    
-    
-    @Published var userPosts: [Post]?
+    //homeで表示するカード
     @Published var displaying_posts: [Post]?
-    @Published var favorite: [Post]?
-    @Published var userFavorite: [String]
-    @Published var post: Post?
-    @Published var showProgressFlag: Bool = false
-    @Published var profileImage: Image?
+    //フルネーム
     @Published var fullname = ""
+    //詳細
     @Published var bio = ""
+    //homeのカテゴリーfilter用
     @Published var selectCate = ""
+    //非同期処理中を表す
+    @Published var showProgressFlag: Bool = false
+    //画像系
     @Published var selectedImage: PhotosPickerItem? {
         didSet { Task {await loadImage(fromItem: selectedImage)}}
     }
     @Published var postImage: Image?
     private var uiImage: UIImage?
+    //userのfavorite
+    @Published var userFavorite: [String]
+    //homeのmenu用
+    @Published var favorite: [Post]?
+    //userのposts
+    @Published var userPosts: [Post]?
     
+    
+    
+    
+    
+    
+    @Published var post: Post?
+    
+    @Published var profileImage: Image?
+    
+        
     init(user: User){
         self.curUser = user
         
@@ -51,7 +66,6 @@ class MainTabViewModel: ObservableObject {
     }
     
     //すべてのuser,postを取得する
-    @MainActor
     func fetchAllData() async throws {
         showProgressFlag = true
         self.allUsers = try await UserService.fetchAllUsers()
@@ -66,15 +80,28 @@ class MainTabViewModel: ObservableObject {
     }
     
     //すべてのpostの取得
-    @MainActor
     func fetchAllPosts() async throws {
         showProgressFlag = true
         self.allPosts = try await PostService.fetchFeedPosts(cate: selectCate)
         showProgressFlag = false
     }
+    //displayに表示するものをランダムにする
+    func fetchPosts() {
+        if self.selectCate == "" {
+            self.displaying_posts = self.allPosts.shuffled()
+        } else {
+            let filterPosts = self.allPosts.filter { post in
+                return post.category.contains(selectCate)
+            }
+            self.displaying_posts = filterPosts.shuffled()
+        }
+        
+        guard displaying_posts != nil else {
+            return
+        }
+    }
     
     //すべてのuserを取得する
-    @MainActor
     func fetchAllUsers() async throws {
         showProgressFlag = true
         self.allUsers = try await UserService.fetchAllUsers()
@@ -88,67 +115,18 @@ class MainTabViewModel: ObservableObject {
         showProgressFlag = false
     }
     
-    func loadImage(fromItem item: PhotosPickerItem?) async {
-        guard let item = item else { return }
-        
-        guard let data = try? await item.loadTransferable(type: Data.self) else { return }
-        guard let uiImage = UIImage(data: data) else { return }
-        self.uiImage = uiImage
-        self.postImage = Image(uiImage: uiImage)
-    }
-    
-    
-    
-    
-    
-    func getIndex(food: Post) -> Int {
-        let index = displaying_posts?.lastIndex(where: { currentFood in
-            return food.id == currentFood.id
-        }) ?? 0
-        
-        return index
-    }
-    
-    func addItem(food: Post) {
-        print(food)
-        if var favorite = self.favorite {
-            if(favorite.count >= 40){
-                favorite.removeLast()
-            }
-            favorite.append(food)
-            self.favorite = favorite
-        } else {
-            self.favorite = [food]
-        }
-        
-    }
-    
-    @MainActor
-    func fetchPosts() async throws {
+    //userの情報を取得
+    func fetchUserData() async throws {
+        var data = [String: Any]()
         showProgressFlag = true
-        self.allPosts = try await PostService.fetchFeedPosts(cate: selectCate)
-        self.displaying_posts = self.allPosts.shuffled()
-        
-        
-        guard displaying_posts != nil else {
-            return
-        }
-
+        self.curUser = try await UserService.fetchUser(withUid: curUser.id)
+        self.userPosts = try await PostService.fetchUserPosts(uid: self.curUser.id)
+        data["postCount"] = self.userPosts?.count ?? 0
+        try await Firestore.firestore().collection("users").document(curUser.id).updateData(data)
         showProgressFlag = false
     }
     
-    func updateCount(user: User) async throws {
-        var data = [String: Any]()
-        
-        var count = user.postCount
-        count += 1
-        
-        data["postCount"] = count
-        
-        try await Firestore.firestore().collection("users").document(user.id).updateData(data)
-    }
-    
-    @MainActor
+    //アップロード
     func uploadPost(title: String, introduction: String, methodValues: [String], ingredientsPeople: String, ingredientsValues: [String], ingredientsAmount: [String], category: [String]) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let uiImage = uiImage else { return }
@@ -161,6 +139,126 @@ class MainTabViewModel: ObservableObject {
         
         try await postRef.setData(encodedPost)
     }
+
+    
+    //フォロ-しているかの確認
+    func checkFollow(_ selectedUserId: String) -> Bool {
+        if self.curUser.follow.contains(selectedUserId) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    //フォローする
+    func registFollow(user: User) async throws {
+        var user = user
+        
+        var userdata = [String: Any]()
+        var currentuserdata = [String: Any]()
+        
+        user.followers.append(curUser.id)
+        curUser.follow.append(user.id)
+        
+        userdata["followers"] = user.followers
+        currentuserdata["follow"] = curUser.follow
+        
+        if !userdata.isEmpty {
+            try await Firestore.firestore().collection("users").document(user.id).updateData(userdata)
+        }
+        if !currentuserdata.isEmpty {
+            try await Firestore.firestore().collection("users").document(curUser.id).updateData(currentuserdata)
+        }
+        
+    }
+    //フォロー解除
+    func deleteFollow(user: User) async throws {
+        var user = user
+        
+        var userdata = [String: Any]()
+        var currentuserdata = [String: Any]()
+        
+        user.followers.removeAll(where: {$0 == curUser.id })
+        curUser.follow.removeAll(where: {$0 == user.id })
+        
+        userdata["followers"] = user.followers
+        currentuserdata["follow"] = curUser.follow
+        
+        if !userdata.isEmpty {
+            try await Firestore.firestore().collection("users").document(user.id).updateData(userdata)
+        }
+        if !currentuserdata.isEmpty {
+            try await Firestore.firestore().collection("users").document(curUser.id).updateData(currentuserdata)
+        }  
+    }
+    //画像のロード
+    func loadImage(fromItem item: PhotosPickerItem?) async {
+        guard let item = item else { return }
+        
+        guard let data = try? await item.loadTransferable(type: Data.self) else { return }
+        guard let uiImage = UIImage(data: data) else { return }
+        self.uiImage = uiImage
+        self.postImage = Image(uiImage: uiImage)
+    }
+
+    
+    
+    
+    
+//----------------------------------------------------------------------------------------
+    //選択したuserの情報を更新
+    func fetchSelectedUser(selectUserId: String) async throws -> User{
+        showProgressFlag = true
+        
+        let selectUser = try await UserService.fetchUser(withUid: selectUserId)
+        
+        showProgressFlag = false
+        return selectUser
+    }
+    //homeのカード管理
+    func getIndex(food: Post) -> Int {
+        let index = displaying_posts?.lastIndex(where: { currentFood in
+            return food.id == currentFood.id
+        }) ?? 0
+        
+        return index
+    }
+    
+    //menuに追加するもの
+    func addItem(food: Post) {
+        //print(food)
+        if var favorite = self.favorite {
+            if(favorite.count >= 40){
+                favorite.removeLast()
+            }
+            favorite.append(food)
+            self.favorite = favorite
+        } else {
+            self.favorite = [food]
+        }
+        
+    }
+    
+//----------------------------------------------------------------------------------------
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
     
     func createEditUser() {
         if let fullname = curUser.fullname {
@@ -173,33 +271,9 @@ class MainTabViewModel: ObservableObject {
         self.userFavorite = curUser.favoriteList
     }
     
-    func fetchUserData() async throws {
-        self.curUser = try await UserService.fetchUser(withUid: curUser.id)
-        self.userPosts = try await PostService.fetchUserPosts(uid: self.curUser.id)
-        self.curUser.postCount = allPosts.count
-        
-        for i in 0 ..< allPosts.count {
-            allPosts[i].user = self.curUser
-        }
-    }
+
     
-    func registFollow() async throws {
-        try await ProfileAuthService.shared.loadUserData()
-        try await ProfileAuthService.shared.registFollow(user: curUser)
-        self.curUser = try await ProfileAuthService.shared.loadWatchUserData(user: curUser)
-        
-    }
     
-    func deleteFollow() async throws {
-        try await ProfileAuthService.shared.loadUserData()
-        try await ProfileAuthService.shared.deleteFollow(user: curUser)
-        self.curUser = try await ProfileAuthService.shared.loadWatchUserData(user: curUser)
-        
-    }
-    
-    func checkFollow() -> Bool {
-        return ProfileAuthService.shared.checkFollow(user: self.curUser)
-    }
     
     func deleteRecipe() async throws {
         guard let post = self.post else {return}
