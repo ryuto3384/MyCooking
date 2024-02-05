@@ -55,7 +55,10 @@ class MainTabViewModel: ObservableObject {
         }
         self.favorite = []
         
-        Task { try await fetchAllData() }
+        Task {
+            try await fetchAllData()
+            try await fetchUserData()
+        }
     }
     
     
