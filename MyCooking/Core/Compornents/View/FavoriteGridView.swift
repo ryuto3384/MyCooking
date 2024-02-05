@@ -9,15 +9,13 @@ import SwiftUI
 import Kingfisher
 
 struct FavoriteGridView: View {
-    @StateObject var viewModel: FavoriteGridViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
+    
+    let user: User
     
     let currentCheck: Bool
     
-    init(user: User, currentCheck: Bool) {
-        self._viewModel = StateObject(wrappedValue: FavoriteGridViewModel(user: user))
-        self.currentCheck = currentCheck
-    }
-    
+    @State private var posts: [Post] = []
     
     private let gridItem : [GridItem] = [
         .init(.flexible(), spacing: 1),
@@ -28,27 +26,38 @@ struct FavoriteGridView: View {
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
     var body: some View {
-        if !viewModel.fetchTime {
-            if !viewModel.posts.isEmpty {
-                LazyVGrid(columns: gridItem, spacing: 1){
-                    ForEach(viewModel.posts) { post in
-                        NavigationLink(value: post) {
-                            KFImage(URL(string: post.imageUrl))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: imageDimension, height: imageDimension)
-                                .clipped()
-                            
+        VStack{
+            if !viewModel.showProgressFlag {
+                if !posts.isEmpty {
+                    LazyVGrid(columns: gridItem, spacing: 1){
+                        ForEach(posts) { post in
+                            NavigationLink(destination: showRecipeView(post: post)){
+                                KFImage(URL(string: post.imageUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: imageDimension, height: imageDimension)
+                                    .clipped()
+                                
+                            }
                         }
                     }
-                }.navigationDestination(for: Post.self, destination: { post in
-                    showRecipeView(post: post, curUser: viewModel.user, false)
-                })
+                } else {
+                    NotingView(text: "お気に入り登録していません")
+                }
             } else {
-                NotingView(text: "お気に入り登録していません")
+                ProgressView()
             }
-        } else {
-            ProgressView()
+        }.onAppear{
+            Task {
+                do {
+                    viewModel.showProgressFlag = true
+                    let userFavoritePost = try await viewModel.fetchUserFavorite(user.favoriteList)
+                    posts = userFavoritePost
+                    viewModel.showProgressFlag = false
+                } catch {
+                    print(error)
+                }
+            }
         }
     }//someview
 }

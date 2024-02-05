@@ -55,7 +55,7 @@ struct UploadView: View {
                                 try await viewModel.uploadPost(title: title, introduction: introduction, methodValues: methodValues ,ingredientsPeople: ingredientsPeople, ingredientsValues: ingredientsValues, ingredientsAmount: ingredientsAmount, category: selectedCategory)
                                 clearPostDateAndReturnToFeed()
                                 
-                                try await viewModel.updateCount(user: viewModel.curUser)
+                                try await viewModel.fetchUserData()
                             }
                             
                         }

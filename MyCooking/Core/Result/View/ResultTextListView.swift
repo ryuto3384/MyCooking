@@ -27,7 +27,7 @@ struct ResultTextListView: View {
             
             
             ForEach(filterPosts) { post in
-                NavigationLink(destination: showRecipeView(post: post, curUser: viewModel.curUser)){
+                NavigationLink(destination: showRecipeView(post: post)){
                     ResultCellView(post: post)
                         .frame(width: widthSize, height: 130)
                 }

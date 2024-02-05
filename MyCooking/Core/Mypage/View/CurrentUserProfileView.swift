@@ -8,8 +8,8 @@
 import SwiftUI
 
 enum GridOption: String, CaseIterable {
-    case myPost = "myPost"
-    case favorite = "favofite"
+    case myPost = "投稿"
+    case favorite = "お気に入り"
 }
 
 struct CurrentUserProfileView: View {
@@ -21,7 +21,7 @@ struct CurrentUserProfileView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ProfileHeaderView()
+                CurrentUserProfileHeaderView()
                 
                 Picker("検索オプション", selection: $gridOption){
                     ForEach(GridOption.allCases, id: \.self) { option in
@@ -32,21 +32,21 @@ struct CurrentUserProfileView: View {
                 .padding(.horizontal, 1)
                 
                 if gridOption == GridOption.myPost {
-                    PostGridView(user: viewModel.curUser, posts: viewModel.allPosts, currentCheck: true)
+                    PostGridView(user: viewModel.curUser, currentCheck: true)
                         
                 } else {
                     FavoriteGridView(user: viewModel.curUser, currentCheck: false)
                 }
                 
             }
-            .navigationTitle("Profile")
+            .navigationTitle("プロフィール")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     Button(action: {
                         AuthService.shared.signout()
                     }, label: {
-                        Image(systemName: "line.3.horizontal")
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
                             .foregroundColor(.black)
                     })
                 }

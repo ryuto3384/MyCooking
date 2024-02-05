@@ -54,7 +54,7 @@ struct RecipeHeaderView: View {
                     Button(role: .destructive) {
                         Task {
                             try await recipeModel.deleteRecipe()
-                            try await viewModel.fetchAllPosts()
+                            try await viewModel.fetchUserData()
                         }
                         dismiss()
                     } label: {
@@ -77,5 +77,5 @@ struct RecipeHeaderView: View {
 }
 
 #Preview {
-    showRecipeView(post: Post.MOCK_POSTS[0], curUser: User.MOCK_USERS[0])
+    showRecipeView(post: Post.MOCK_POSTS[0])
 }

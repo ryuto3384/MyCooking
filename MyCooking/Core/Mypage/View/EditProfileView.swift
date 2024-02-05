@@ -18,13 +18,13 @@ struct EditProfileView: View {
             //toolbar
             VStack {
                 HStack {
-                    Button("Cancel") {
+                    Button("キャンセル") {
                         dismiss()
                     }
                     
                     Spacer()
                     
-                    Text("Edit Profile")
+                    Text("プロフィール編集")
                         .font(.subheadline)
                         .fontWeight(.semibold)
                     
@@ -37,7 +37,7 @@ struct EditProfileView: View {
                         }
                         
                     } label: {
-                        Text("Done")
+                        Text("完了")
                             .font(.subheadline)
                             .fontWeight(.bold)
                     }
@@ -62,7 +62,7 @@ struct EditProfileView: View {
                         CircularProfileImageView(user: viewModel.curUser, size: .large)
                     }
                     
-                    Text("Edit profile picture")
+                    Text("写真選択")
                         .font(.footnote)
                         .fontWeight(.semibold)
                     
@@ -73,9 +73,9 @@ struct EditProfileView: View {
             
             //edit profile inro
             VStack {
-                EditProfileRowView(title: "Name", placeholder: "Enter your name", text: $viewModel.fullname)
+                EditProfileRowView(title: "名前", placeholder: "太郎", text: $viewModel.fullname)
                 
-                EditProfileRowView(title: "Bio", placeholder: "Enter your bio", text: $viewModel.bio)
+                EditProfileRowView(title: "ひとこと", placeholder: "よろしく！", text: $viewModel.bio)
                 
                 Spacer()
             }

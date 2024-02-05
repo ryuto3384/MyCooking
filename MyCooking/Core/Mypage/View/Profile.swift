@@ -13,19 +13,16 @@ struct ProfileView: View {
     @EnvironmentObject var viewModel: MainTabViewModel
     
     var body: some View {
-        
-        
-        
+
         ScrollView {
             
-            ProfileHeaderView()
+            ProfileHeaderView(user: user)
             
             Divider()
             
             //grid
-            PostGridView(user: viewModel.curUser, posts: viewModel.allPosts, currentCheck: false)
+            PostGridView(user: user, currentCheck: false)
         }
-        .navigationTitle("MyPage")
         .navigationBarTitleDisplayMode(.inline)
         
         

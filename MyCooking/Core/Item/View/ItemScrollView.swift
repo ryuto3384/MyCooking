@@ -29,16 +29,17 @@ struct ItemScrollView: View {
             VStack {
                 Text(category)
                     .font(.title)
-                    .foregroundStyle(Color("TextColor1"))
+                    //.foregroundStyle(Color("TextColor1"))
+                    .foregroundStyle(.black)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
+                    //.shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 10) {
                         ForEach(filterPosts){ post in
                             
-                            if let user = post.user {
-                                NavigationLink(destination: showRecipeView(post: post, curUser: user)){
+                            if post.user != nil {
+                                NavigationLink(destination: showRecipeView(post: post)){
                                     VStack{
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
@@ -51,9 +52,10 @@ struct ItemScrollView: View {
                                         
                                         Text(post.introduction)
                                             .font(.caption)
-                                            .foregroundStyle(Color("TextColor1"))
+                                            //.foregroundStyle(Color("TextColor1"))
+                                            .foregroundStyle(.black)
                                             .multilineTextAlignment(.leading)
-                                            .shadow(color: .black.opacity(0.75), radius: 3, x: 1, y: 1)
+                                            //.shadow(color: .black.opacity(0.75), radius: 3, x: 1, y: 1)
                                         Spacer()
                                     }
                                     .frame(width: imageDimension, height: imageHeight)

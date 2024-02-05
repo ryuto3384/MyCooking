@@ -14,7 +14,7 @@ struct HomeView: View {
     @State private var isPresented = false
     @State private var isShowCategory = false
     
-    @State var selectCate = ""
+    //@State var selectCate = ""
     
     private let buttonSize: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
@@ -28,9 +28,9 @@ struct HomeView: View {
                             if let foods = viewModel.displaying_posts {
                                 if foods.isEmpty {
                                     Button{
-                                        Task{
-                                            try await viewModel.fetchPosts()
-                                        }
+                                        
+                                        viewModel.fetchPosts()
+                                        
                                     } label: {
                                         Text("更新する")
                                             .font(.caption)
@@ -71,7 +71,6 @@ struct HomeView: View {
                         .opacity((viewModel.displaying_posts?.isEmpty ?? false) ? 0.6 : 1)
                         
                         Button{
-                            print("menu")
                             isPresented.toggle()
                         }label: {
                             Image(systemName: "list.bullet.rectangle.portrait")
@@ -120,7 +119,6 @@ struct HomeView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     Button{
-                        print("種類の変更")
                         isShowCategory.toggle()
                     }label: {
                         Image(systemName: "slider.horizontal.3")

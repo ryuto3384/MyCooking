@@ -18,13 +18,13 @@ struct ItemView: View {
     
     var body: some View {
         //グラデーション
-        let gradient: LinearGradient = LinearGradient(
-            gradient: Gradient(colors: [Color("MainGradient1-1"), Color("MainGradient1-2")]), startPoint:.top, endPoint: .bottom)
+        /*let gradient: LinearGradient = LinearGradient(
+            gradient: Gradient(colors: [Color("MainGradient1-1"), Color("MainGradient1-2")]), startPoint:.top, endPoint: .bottom)*/
         
         NavigationStack {
             ZStack{
-                gradient
-                    .edgesIgnoringSafeArea(.all)
+                /*gradient
+                    .edgesIgnoringSafeArea(.all):*/
                 
                 ScrollView{
                     LazyVStack{
@@ -36,9 +36,10 @@ struct ItemView: View {
                         VStack{
                             Text("キーワード")
                                 .font(.title)
-                                .foregroundStyle(Color("TextColor1"))
+                                //.foregroundStyle(Color("TextColor1"))
+                                .foregroundStyle(.black)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
+                                //.shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
                                 .padding(.horizontal)
                             
                             
@@ -62,7 +63,7 @@ struct ItemView: View {
                 .refreshable{
                     do {
                         Task {
-                            try await viewModel.fetchPosts()
+                            try await viewModel.fetchAllPosts()
                         }
                     }
                 }

@@ -26,11 +26,10 @@ struct HomeSelectedCategoryView: View {
                 LazyVGrid(columns: gridItem, spacing: 2){
                     ForEach(categories, id: \.self) { category in
                         Button{
-                            viewModel.selectCate = category.rawValue
                             dismiss()
-                            Task{
-                                try await viewModel.fetchPosts()
-                            }
+                            viewModel.selectCate = category.rawValue
+                            viewModel.fetchPosts()
+                            
                         } label: {
                             Text(category.rawValue)
                                 .padding()
@@ -41,6 +40,19 @@ struct HomeSelectedCategoryView: View {
                         }
                         
                         
+                    }
+                    Button{
+                        dismiss()
+                        viewModel.selectCate = ""
+                        viewModel.fetchPosts()
+                        
+                    } label: {
+                        Text("なし")
+                            .padding()
+                            .frame(width: 150, height: 60)
+                            .foregroundColor(Color.white)
+                            .background(Color.blue)
+                            .cornerRadius(25)
                     }
                 }
             }
