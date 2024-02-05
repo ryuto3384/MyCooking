@@ -22,17 +22,20 @@ struct HomeFavoriteView: View {
                         .font(.system(size: 30))
                         .foregroundStyle(.black)
                 }
+                .padding(.horizontal)
+                .padding(.top)
                 Spacer()
+                
             }
             
-            if viewModel.favorite != nil{
-                ResultListView(category: "")
+            if !viewModel.favorite.isEmpty{
+                HomeResultList()
             } else {
                 Text("いいねしたレシピがありません")
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .padding()
+        
             
     }
 }

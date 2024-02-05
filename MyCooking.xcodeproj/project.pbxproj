@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B4D30932B590EA400CF0461 /* FavoriteGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30922B590EA400CF0461 /* FavoriteGridView.swift */; };
-		2B4D30952B590EC100CF0461 /* FavoriteGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */; };
 		2B4D309A2B59307E00CF0461 /* ProfileAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */; };
-		2B4D78A22B5CE7FF00FFC513 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4D78A12B5CE7FF00FFC513 /* ProfileViewModel.swift */; };
 		2B6C62342AB18A1400B2D8D1 /* MyCookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62332AB18A1400B2D8D1 /* MyCookingApp.swift */; };
 		2B6C62362AB18A1400B2D8D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C62352AB18A1400B2D8D1 /* ContentView.swift */; };
 		2B6C62382AB18A1500B2D8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6C62372AB18A1500B2D8D1 /* Assets.xcassets */; };
@@ -24,6 +22,7 @@
 		2B740F042B4D432700735A36 /* HomeFavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B740F032B4D432700735A36 /* HomeFavoriteView.swift */; };
 		2B740F0B2B4EA09B00735A36 /* ResultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B740F0A2B4EA09B00735A36 /* ResultListView.swift */; };
 		2B740F0D2B4EA0A600735A36 /* ResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B740F0C2B4EA0A600735A36 /* ResultCellView.swift */; };
+		2B8784972B71351B006695C3 /* CurrentUserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8784962B71351B006695C3 /* CurrentUserProfileHeaderView.swift */; };
 		2B947B842B5CC770005AE745 /* UploadHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B947B832B5CC770005AE745 /* UploadHashView.swift */; };
 		2BA69D6E2B6F47EB009BF71F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA69D6D2B6F47EB009BF71F /* FirebaseAnalytics */; };
 		2BA69D702B6F47EB009BF71F /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA69D6F2B6F47EB009BF71F /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -52,6 +51,7 @@
 		2BA69D9E2B6F47EB009BF71F /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA69D9D2B6F47EB009BF71F /* FirebaseRemoteConfigSwift */; };
 		2BA69DA02B6F47EB009BF71F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA69D9F2B6F47EB009BF71F /* FirebaseStorage */; };
 		2BA69DA22B6F47EB009BF71F /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA69DA12B6F47EB009BF71F /* FirebaseStorageCombine-Community */; };
+		2BA69DA72B70819B009BF71F /* HomeResultList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA69DA62B70819B009BF71F /* HomeResultList.swift */; };
 		2BC1BA962B648EDC00796609 /* RecipeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC1BA952B648EDC00796609 /* RecipeHeader.swift */; };
 		2BC1BA982B64A3B600796609 /* RecipeEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC1BA972B64A3B600796609 /* RecipeEditView.swift */; };
 		2BD33B982B5620E9004FD3E6 /* HomeSelectedCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD33B972B5620E9004FD3E6 /* HomeSelectedCategoryView.swift */; };
@@ -69,7 +69,6 @@
 		2BE283BF2B4679340095F88D /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283BE2B4679340095F88D /* CircularProfileImageView.swift */; };
 		2BE283C12B4679460095F88D /* IGTextFieldModifire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283C02B4679460095F88D /* IGTextFieldModifire.swift */; };
 		2BE283C32B4679590095F88D /* UserStatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283C22B4679590095F88D /* UserStatView.swift */; };
-		2BE283C92B4679D60095F88D /* PostGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283C82B4679D60095F88D /* PostGridViewModel.swift */; };
 		2BE283CB2B4679F70095F88D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283CA2B4679F70095F88D /* Post.swift */; };
 		2BE283CD2B467AB10095F88D /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE283CC2B467AB10095F88D /* EditProfileView.swift */; };
 		2BE283CF2B4680A20095F88D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BE283CE2B4680A20095F88D /* GoogleService-Info.plist */; };
@@ -94,9 +93,7 @@
 
 /* Begin PBXFileReference section */
 		2B4D30922B590EA400CF0461 /* FavoriteGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGridView.swift; sourceTree = "<group>"; };
-		2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGridViewModel.swift; sourceTree = "<group>"; };
 		2B4D30992B59307E00CF0461 /* ProfileAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAuthService.swift; sourceTree = "<group>"; };
-		2B4D78A12B5CE7FF00FFC513 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2B6C62302AB18A1400B2D8D1 /* MyCooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6C62332AB18A1400B2D8D1 /* MyCookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCookingApp.swift; sourceTree = "<group>"; };
 		2B6C62352AB18A1400B2D8D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,7 +108,9 @@
 		2B740F032B4D432700735A36 /* HomeFavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavoriteView.swift; sourceTree = "<group>"; };
 		2B740F0A2B4EA09B00735A36 /* ResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListView.swift; sourceTree = "<group>"; };
 		2B740F0C2B4EA0A600735A36 /* ResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCellView.swift; sourceTree = "<group>"; };
+		2B8784962B71351B006695C3 /* CurrentUserProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileHeaderView.swift; sourceTree = "<group>"; };
 		2B947B832B5CC770005AE745 /* UploadHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadHashView.swift; sourceTree = "<group>"; };
+		2BA69DA62B70819B009BF71F /* HomeResultList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResultList.swift; sourceTree = "<group>"; };
 		2BC1BA952B648EDC00796609 /* RecipeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeHeader.swift; sourceTree = "<group>"; };
 		2BC1BA972B64A3B600796609 /* RecipeEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditView.swift; sourceTree = "<group>"; };
 		2BD33B972B5620E9004FD3E6 /* HomeSelectedCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectedCategoryView.swift; sourceTree = "<group>"; };
@@ -128,7 +127,6 @@
 		2BE283BE2B4679340095F88D /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		2BE283C02B4679460095F88D /* IGTextFieldModifire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextFieldModifire.swift; sourceTree = "<group>"; };
 		2BE283C22B4679590095F88D /* UserStatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatView.swift; sourceTree = "<group>"; };
-		2BE283C82B4679D60095F88D /* PostGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridViewModel.swift; sourceTree = "<group>"; };
 		2BE283CA2B4679F70095F88D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		2BE283CC2B467AB10095F88D /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		2BE283CE2B4680A20095F88D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -286,6 +284,7 @@
 				2B740F0A2B4EA09B00735A36 /* ResultListView.swift */,
 				2B740F0C2B4EA0A600735A36 /* ResultCellView.swift */,
 				2BEE362B2B62540F0090CDD4 /* ResultTextListView.swift */,
+				2BA69DA62B70819B009BF71F /* HomeResultList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -422,7 +421,6 @@
 		2BE283A22B4676320095F88D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2B4D78A12B5CE7FF00FFC513 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -434,6 +432,7 @@
 				2BE283A82B4676CC0095F88D /* ProfileHeaderView.swift */,
 				2BE283CC2B467AB10095F88D /* EditProfileView.swift */,
 				2BE2846B2B4688430095F88D /* CurrentUserProfileView.swift */,
+				2B8784962B71351B006695C3 /* CurrentUserProfileHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -484,8 +483,6 @@
 		2BE283C42B4679A50095F88D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2BE283C82B4679D60095F88D /* PostGridViewModel.swift */,
-				2B4D30942B590EC100CF0461 /* FavoriteGridViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -674,10 +671,10 @@
 				2B740EFA2B4BCF1500735A36 /* ItemSearchView.swift in Sources */,
 				2BE283BF2B4679340095F88D /* CircularProfileImageView.swift in Sources */,
 				2BE283B92B4677DA0095F88D /* UploadView.swift in Sources */,
+				2BA69DA72B70819B009BF71F /* HomeResultList.swift in Sources */,
 				2B740F0D2B4EA0A600735A36 /* ResultCellView.swift in Sources */,
 				2BE283F22B4682A30095F88D /* CreateUserNameView.swift in Sources */,
 				2BE283C32B4679590095F88D /* UserStatView.swift in Sources */,
-				2B4D78A22B5CE7FF00FFC513 /* ProfileViewModel.swift in Sources */,
 				2BE283A72B4676A00095F88D /* Profile.swift in Sources */,
 				2B4D30932B590EA400CF0461 /* FavoriteGridView.swift in Sources */,
 				2BE283DC2B4681040095F88D /* ContentViewModel.swift in Sources */,
@@ -695,7 +692,6 @@
 				2BE283CD2B467AB10095F88D /* EditProfileView.swift in Sources */,
 				2BE283EE2B4682630095F88D /* LoginView.swift in Sources */,
 				2B740F0B2B4EA09B00735A36 /* ResultListView.swift in Sources */,
-				2BE283C92B4679D60095F88D /* PostGridViewModel.swift in Sources */,
 				2BEE362A2B62530B0090CDD4 /* ItemSearchTextView.swift in Sources */,
 				2B740EF22B48F73600735A36 /* showRecipeView.swift in Sources */,
 				2BD33B982B5620E9004FD3E6 /* HomeSelectedCategoryView.swift in Sources */,
@@ -709,10 +705,10 @@
 				2BE283E22B4681420095F88D /* PostService.swift in Sources */,
 				2BE283F62B4682CC0095F88D /* CompleateSigunUpView.swift in Sources */,
 				2BEE362E2B6263C00090CDD4 /* SearchBar.swift in Sources */,
+				2B8784972B71351B006695C3 /* CurrentUserProfileHeaderView.swift in Sources */,
 				2BE283E82B4682140095F88D /* AuthService.swift in Sources */,
 				2BD33B9A2B562569004FD3E6 /* Category.swift in Sources */,
 				2B6C62342AB18A1400B2D8D1 /* MyCookingApp.swift in Sources */,
-				2B4D30952B590EC100CF0461 /* FavoriteGridViewModel.swift in Sources */,
 				2BE283E02B4681380095F88D /* ImageUploader.swift in Sources */,
 				2BC1BA982B64A3B600796609 /* RecipeEditView.swift in Sources */,
 				2B947B842B5CC770005AE745 /* UploadHashView.swift in Sources */,

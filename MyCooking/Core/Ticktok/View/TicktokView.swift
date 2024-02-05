@@ -19,7 +19,7 @@ struct SearchView: View {
                     if searchText == "" {
                         ForEach(viewModel.allUsers.filter( {$0.id != viewModel.curUser.id} )){ user in
                             
-                            NavigationLink(value: user) {
+                            NavigationLink(destination: ProfileView(user: user)){
                                 HStack{
                                     CircularProfileImageView(user: user, size: .xSmall)
                                     
@@ -49,7 +49,7 @@ struct SearchView: View {
                             return user.username.lowercased().contains(searchText.lowercased())
                         }) { user in
                             
-                            NavigationLink(value: user) {
+                            NavigationLink(destination: ProfileView(user: user)){
                                 HStack{
                                     CircularProfileImageView(user: user, size: .xSmall)
                                     
@@ -80,9 +80,6 @@ struct SearchView: View {
                 .padding(.top, 8)
                 .searchable(text: $searchText,prompt: "検索...")
             }
-            .navigationDestination(for: User.self, destination: { user in
-                ProfileView(user: user)
-            })
             .navigationTitle("検索")
             .navigationBarTitleDisplayMode(.inline)
         }

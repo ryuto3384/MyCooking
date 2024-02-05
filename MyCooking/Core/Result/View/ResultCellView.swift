@@ -22,10 +22,7 @@ struct ResultCellView: View {
                 }
                 
                 HStack{
-                    ForEach(post.ingredientsValues, id: \.self) { value in
-                        Text(value)
-                            .font(.caption)
-                    }
+                    Text(post.introduction)
                     Spacer()
                 }
                 HStack{

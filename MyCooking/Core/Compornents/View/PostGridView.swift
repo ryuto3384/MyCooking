@@ -9,15 +9,12 @@ import SwiftUI
 import Kingfisher
 
 struct PostGridView: View {
-    @StateObject var viewModel: PostGridViewModel
+    @EnvironmentObject var viewModel: MainTabViewModel
     
+    let user: User
     let currentCheck: Bool
     
-    init(user: User, posts: [Post], currentCheck: Bool) {
-        self._viewModel = StateObject(wrappedValue: PostGridViewModel(user: user, posts: posts))
-        self.currentCheck = currentCheck
-    }
-    
+    @State private var posts: [Post] = []
     
     private let gridItem : [GridItem] = [
         .init(.flexible(), spacing: 1),
@@ -28,31 +25,45 @@ struct PostGridView: View {
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 1
     
     var body: some View {
-        if !viewModel.fetchTime {
-            if !viewModel.posts.isEmpty {
-                LazyVGrid(columns: gridItem, spacing: 1){
-                    ForEach(viewModel.posts) { post in
-                        NavigationLink(value: post) {
-                            KFImage(URL(string: post.imageUrl))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: imageDimension, height: imageDimension)
-                                .clipped()
-                            
+        VStack{
+            if !viewModel.showProgressFlag {
+                if !posts.isEmpty {
+                    LazyVGrid(columns: gridItem, spacing: 1){
+                        ForEach(posts) { post in
+                            NavigationLink(destination: showRecipeView(post: post, currentCheck)){
+                                KFImage(URL(string: post.imageUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: imageDimension, height: imageDimension)
+                                    .clipped()
+                                
+                            }
                         }
                     }
-                }.navigationDestination(for: Post.self, destination: { post in
-                    showRecipeView(post: post, curUser: viewModel.user, currentCheck)
-                })
+                    
+                     
+                }else {
+                    NotingView(text: "投稿していません")
+                }
             }else {
-                NotingView(text: "投稿していません")
+                ProgressView()
             }
-        }else {
-            ProgressView()
+        }.onAppear{
+            Task {
+                do {
+                    viewModel.showProgressFlag = true
+                    let selectUserPost = try await viewModel.fetchUserPost(uid: user.id)
+                    posts = selectUserPost
+                    viewModel.showProgressFlag = false
+                } catch {
+                    print(error)
+                }
+            }
         }
+        
     }
 }
 
 #Preview {
-    PostGridView(user: User.MOCK_USERS[0], posts: Post.MOCK_POSTS, currentCheck: true)
+    PostGridView(user: User.MOCK_USERS[0], currentCheck: true)
 }

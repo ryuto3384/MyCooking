@@ -45,7 +45,6 @@ struct RecipeEditView: View {
                     Button {
                         Task {
                             try await recipeModel.updateRecipe()
-                            try await viewModel.fetchAllPosts()
                         }
                         dismiss()
                         
@@ -172,5 +171,5 @@ struct RecipeEditView: View {
 }
 
 #Preview {
-    RecipeEditView(recipeModel: ShowRecipeViewModel(post: Post.MOCK_POSTS[0], curUser: User.MOCK_USERS[0]))
+    RecipeEditView(recipeModel: ShowRecipeViewModel(post: Post.MOCK_POSTS[0]))
 }

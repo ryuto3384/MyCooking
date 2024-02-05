@@ -21,9 +21,8 @@ struct ProfileView: View {
             Divider()
             
             //grid
-            PostGridView(user: user, posts: viewModel.allPosts, currentCheck: false)
+            PostGridView(user: user, currentCheck: false)
         }
-        .navigationTitle("MyPage")
         .navigationBarTitleDisplayMode(.inline)
         
         

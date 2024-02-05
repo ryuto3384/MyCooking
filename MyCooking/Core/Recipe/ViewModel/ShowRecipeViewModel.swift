@@ -11,7 +11,6 @@ import Firebase
 
 class ShowRecipeViewModel: ObservableObject{
     @Published var post: Post
-    @Published var curUser: User
 
     //各値
     @Published var favorite = [String]()
@@ -26,13 +25,10 @@ class ShowRecipeViewModel: ObservableObject{
     
     @Published var showProgressFlag = false
     
-    init(post: Post, curUser: User) {
+    init(post: Post) {
         
         self.post = post
-        
-        self.curUser = curUser
-        
-        self.favorite = curUser.favoriteList
+
         self.introduction = post.introduction
         self.title = post.title
         self.methodValues = post.methodValues
@@ -59,28 +55,7 @@ class ShowRecipeViewModel: ObservableObject{
         self.postImage = Image(uiImage: uiImage)
         
     }
-    
-    //お気に入りボタン
-    @MainActor
-    func updateUserData(postId: String = "" ) async throws {
-        
-        var data = [String: Any]()
-        
-        if favorite.contains(postId) {
-            favorite.removeAll(where: {$0 == postId })
-            
-        } else {
-            favorite.append(postId)
-        }
-        
-        data["favoriteList"] = favorite
-        
-        
-        if !data.isEmpty {
-            try await Firestore.firestore().collection("users").document(curUser.id).updateData(data)
-        }
-    }
-    
+
     @MainActor
     func updateRecipe() async throws {
         var data = [String: Any]()

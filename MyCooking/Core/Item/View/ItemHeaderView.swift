@@ -27,6 +27,7 @@ struct ItemHeaderView: View {
                             .frame(maxWidth: 200, minHeight: 75)
                             .background(gradient)
                             .foregroundStyle(Color("TextColor1"))
+                            //.foregroundStyle(.black)
                             .cornerRadius(10)
                             .shadow(color: .black.opacity(0.75), radius: 3, x: 2, y: 2)
                             .overlay(
